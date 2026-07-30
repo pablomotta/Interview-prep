@@ -233,7 +233,11 @@ function migrate(){
 }
 function persist(){ if(memoryOnly) return; try{ localStorage.setItem(KEY, JSON.stringify(progress)); }catch(e){} }
 function persistProfile(){ if(memoryOnly) return; try{ localStorage.setItem(PKEY, JSON.stringify(profile)); }catch(e){} }
-function resetAll(){ progress={}; try{ localStorage.removeItem(KEY);}catch(e){} render(); }
+function resetAll(){
+  progress={}; profile={name:"",skipped:false};
+  try{ localStorage.removeItem(KEY); localStorage.removeItem(PKEY); }catch(e){}
+  view="name"; render();
+}
 
 function poolFor(sc){
   if(sc.type==="category") return ALL.filter(c=>c.catId===sc.value);
@@ -462,7 +466,7 @@ function wire(){
   };
   const reset=root.querySelector("#resetBtn"); if(reset) reset.onclick=()=>{
     const w=root.querySelector("#resetWrap");
-    w.innerHTML=`<span style="color:var(--muted);font-size:13px;margin-right:10px">Erase all ratings?</span>
+    w.innerHTML=`<span style="color:var(--muted);font-size:13px;margin-right:10px">Erase all ratings and your name?</span>
       <button class="ghost" id="yesReset" style="color:${C.red};border-color:${C.red}">Yes, reset</button>
       <button class="ghost" id="noReset" style="margin-left:8px">Cancel</button>`;
     root.querySelector("#yesReset").onclick=resetAll;
