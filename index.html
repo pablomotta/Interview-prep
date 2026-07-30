@@ -201,7 +201,7 @@ const BANK = [
 const ALL = [];
 BANK.forEach(cat => cat.cards.forEach(c => ALL.push(Object.assign({}, c, {catId:cat.id, catName:cat.name, domain:cat.domain, slope:cat.slope}))));
 const CAT = {}; BANK.forEach(c => CAT[c.id]=c);
-const KEY="interview_drill_v1", PKEY="interview_drill_profile_v1", DAY=86400000, INT={1:0,2:DAY,3:3*DAY,4:7*DAY,5:16*DAY};
+const KEY="interview_drill_v1", PKEY="interview_drill_profile_v1", SKEY="interview_drill_session_v1", DAY=86400000, INT={1:0,2:DAY,3:3*DAY,4:7*DAY,5:16*DAY};
 
 /* ---------------- state ---------------- */
 let progress = {};
@@ -209,6 +209,7 @@ let profile = {name:"", skipped:false};
 let memoryOnly = false;
 let view="home", scope={type:"domain",value:"all"}, card=null, revealed=false;
 let session={g:0,y:0,r:0}, recent=[];
+let savedSession=null;
 const COOLDOWN=6;
 
 function storageOK(){ try{ const k="__id_test"; localStorage.setItem(k,"1"); localStorage.removeItem(k); return true; }catch(e){ return false; } }
@@ -216,6 +217,7 @@ function load(){
   memoryOnly=!storageOK(); if(memoryOnly) return;
   try{ const v=localStorage.getItem(KEY); if(v) progress=JSON.parse(v); }catch(e){}
   try{ const p=localStorage.getItem(PKEY); if(p) profile=Object.assign(profile, JSON.parse(p)); }catch(e){}
+  try{ const sv=localStorage.getItem(SKEY); if(sv) savedSession=JSON.parse(sv); }catch(e){}
   migrate();
 }
 // older saves stored only the latest grade; seed the lifetime tallies from it so history isn't lost
@@ -233,9 +235,17 @@ function migrate(){
 }
 function persist(){ if(memoryOnly) return; try{ localStorage.setItem(KEY, JSON.stringify(progress)); }catch(e){} }
 function persistProfile(){ if(memoryOnly) return; try{ localStorage.setItem(PKEY, JSON.stringify(profile)); }catch(e){} }
+// tracks where you are mid-drill so an accidental reload resumes instead of dumping you back to topics
+function persistSession(){
+  if(memoryOnly) return;
+  try{
+    if(view==="drill" && card) localStorage.setItem(SKEY, JSON.stringify({scope, cardId:card.id, session}));
+    else localStorage.removeItem(SKEY);
+  }catch(e){}
+}
 function resetAll(){
   progress={}; profile={name:"",skipped:false};
-  try{ localStorage.removeItem(KEY); localStorage.removeItem(PKEY); }catch(e){}
+  try{ localStorage.removeItem(KEY); localStorage.removeItem(PKEY); localStorage.removeItem(SKEY); }catch(e){}
   view="name"; render();
 }
 
@@ -274,7 +284,7 @@ function pickNext(sc){
   return pool[0];
 }
 function serve(sc){ const c=pickNext(sc); if(c){ recent.push(c.id); if(recent.length>COOLDOWN) recent.shift(); } return c; }
-function startDrill(sc){ scope=sc; recent=[]; session={g:0,y:0,r:0}; card=serve(sc); revealed=false; view="drill"; render(); }
+function startDrill(sc){ scope=sc; recent=[]; session={g:0,y:0,r:0}; card=serve(sc); revealed=false; view="drill"; persistSession(); render(); }
 function grade(gk){
   if(!card) return;
   const cur=st(card);
@@ -284,7 +294,7 @@ function grade(gk){
   progress[card.id]=next;
   persist();
   session[gk]++;
-  card=serve(scope); revealed=false; render();
+  card=serve(scope); revealed=false; persistSession(); render();
 }
 function stats(){
   const out={};
@@ -452,7 +462,7 @@ function wire(){
   root.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>startDrill({type:"category",value:b.dataset.cat}));
   const rb=root.querySelector("#revealBtn"); if(rb) rb.onclick=()=>{revealed=true;render();};
   root.querySelectorAll("[data-grade]").forEach(b=>b.onclick=()=>grade(b.dataset.grade));
-  const bk=root.querySelector("#backBtn"); if(bk) bk.onclick=()=>{view="home";render();};
+  const bk=root.querySelector("#backBtn"); if(bk) bk.onclick=()=>{view="home";persistSession();render();};
   const en=root.querySelector("#editName"); if(en) en.onclick=()=>{view="name";render();};
   const sv=root.querySelector("#saveName"); if(sv) sv.onclick=()=>{
     const i=root.querySelector("#nameInput"), v=(i.value||"").trim();
@@ -480,7 +490,16 @@ window.addEventListener("keydown",e=>{
 });
 
 load();
-if(!profile.name && !profile.skipped) view="name";
+if(!profile.name && !profile.skipped){
+  view="name";
+}else if(savedSession){
+  const c=ALL.find(x=>x.id===savedSession.cardId);
+  const scOK=savedSession.scope && (savedSession.scope.type==="category"?CAT[savedSession.scope.value]:true);
+  if(c && scOK && poolFor(savedSession.scope).length){
+    scope=savedSession.scope; session=savedSession.session||{g:0,y:0,r:0};
+    card=c; recent=[c.id]; revealed=false; view="drill";
+  }
+}
 render();
 </script>
 </body>
