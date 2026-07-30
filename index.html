@@ -72,7 +72,22 @@
   .gradeBtn .l{font-weight:700;font-size:15px}
   .gradeBtn .h{font-family:ui-monospace,monospace;font-size:11px;opacity:.7}
   .note{color:var(--faint);font-size:12px;margin-top:16px;line-height:1.5}
-  @media(max-width:460px){ h1{font-size:25px} .qText{font-size:19px} .focusBtn .t{font-size:15px} }
+  .nameWrap{margin-top:52px}
+  .nameInput{width:100%;margin-top:20px;padding:14px 16px;border-radius:12px;border:1px solid var(--border);
+    background:var(--surfaceAlt);color:var(--text);font-size:16px;font-family:inherit}
+  .nameInput:focus{outline:none;border-color:var(--accent)}
+  .nameActions{margin-top:16px;display:flex;gap:10px;align-items:center}
+  .scoreCard{margin-top:28px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+  .scoreHead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
+  .scoreName{font-size:17px;font-weight:700}
+  .editName{background:transparent;border:none;color:var(--accent);cursor:pointer;font-size:11px;
+    font-family:ui-monospace,monospace;letter-spacing:1px;padding:0}
+  .scoreGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center}
+  .scoreCell{background:var(--surfaceAlt);border:1px solid var(--border);border-radius:11px;padding:12px 6px}
+  .scoreCell .num{font-size:25px;font-weight:800;font-family:ui-monospace,monospace;line-height:1.1}
+  .scoreCell .lbl{font-size:11px;color:var(--muted);margin-top:5px}
+  .scoreFoot{margin-top:14px;font-family:ui-monospace,monospace;font-size:11.5px;color:var(--muted);line-height:1.75}
+  @media(max-width:460px){ h1{font-size:25px} .qText{font-size:19px} .focusBtn .t{font-size:15px} .scoreCell .num{font-size:22px} }
 </style>
 </head>
 <body>
@@ -186,18 +201,38 @@ const BANK = [
 const ALL = [];
 BANK.forEach(cat => cat.cards.forEach(c => ALL.push(Object.assign({}, c, {catId:cat.id, catName:cat.name, domain:cat.domain, slope:cat.slope}))));
 const CAT = {}; BANK.forEach(c => CAT[c.id]=c);
-const KEY="interview_drill_v1", DAY=86400000, INT={1:0,2:DAY,3:3*DAY,4:7*DAY,5:16*DAY};
+const KEY="interview_drill_v1", PKEY="interview_drill_profile_v1", DAY=86400000, INT={1:0,2:DAY,3:3*DAY,4:7*DAY,5:16*DAY};
 
 /* ---------------- state ---------------- */
 let progress = {};
+let profile = {name:"", skipped:false};
 let memoryOnly = false;
 let view="home", scope={type:"domain",value:"all"}, card=null, revealed=false;
 let session={g:0,y:0,r:0}, recent=[];
 const COOLDOWN=6;
 
 function storageOK(){ try{ const k="__id_test"; localStorage.setItem(k,"1"); localStorage.removeItem(k); return true; }catch(e){ return false; } }
-function load(){ memoryOnly=!storageOK(); if(memoryOnly) return; try{ const v=localStorage.getItem(KEY); if(v) progress=JSON.parse(v); }catch(e){} }
+function load(){
+  memoryOnly=!storageOK(); if(memoryOnly) return;
+  try{ const v=localStorage.getItem(KEY); if(v) progress=JSON.parse(v); }catch(e){}
+  try{ const p=localStorage.getItem(PKEY); if(p) profile=Object.assign(profile, JSON.parse(p)); }catch(e){}
+  migrate();
+}
+// older saves stored only the latest grade; seed the lifetime tallies from it so history isn't lost
+function migrate(){
+  let changed=false;
+  Object.keys(progress).forEach(id=>{
+    const s=progress[id]; if(!s||typeof s!=="object") return;
+    if(s.g===undefined&&s.y===undefined&&s.r===undefined){
+      s.g=0; s.y=0; s.r=0;
+      if(s.seen&&(s.grade==="g"||s.grade==="y"||s.grade==="r")) s[s.grade]=1;
+      changed=true;
+    }
+  });
+  if(changed) persist();
+}
 function persist(){ if(memoryOnly) return; try{ localStorage.setItem(KEY, JSON.stringify(progress)); }catch(e){} }
+function persistProfile(){ if(memoryOnly) return; try{ localStorage.setItem(PKEY, JSON.stringify(profile)); }catch(e){} }
 function resetAll(){ progress={}; try{ localStorage.removeItem(KEY);}catch(e){} render(); }
 
 function poolFor(sc){
@@ -205,7 +240,7 @@ function poolFor(sc){
   if(sc.value==="all") return ALL;
   return ALL.filter(c=>c.domain===sc.value);
 }
-function st(c){ return progress[c.id]||{box:1,seen:false,last:0,grade:null}; }
+function st(c){ return progress[c.id]||{box:1,seen:false,last:0,grade:null,g:0,y:0,r:0}; }
 function orderUnseen(arr, sc){
   const mixed = sc.type==="domain" && sc.value==="all";
   return arr.slice().sort((a,b)=>{
@@ -239,7 +274,10 @@ function startDrill(sc){ scope=sc; recent=[]; session={g:0,y:0,r:0}; card=serve(
 function grade(gk){
   if(!card) return;
   const cur=st(card);
-  progress[card.id]={box:GRADE[gk].box(cur.box), seen:true, last:Date.now(), grade:gk};
+  const next={box:GRADE[gk].box(cur.box), seen:true, last:Date.now(), grade:gk,
+              g:cur.g||0, y:cur.y||0, r:cur.r||0};
+  next[gk]++;
+  progress[card.id]=next;
   persist();
   session[gk]++;
   card=serve(scope); revealed=false; render();
@@ -252,15 +290,58 @@ function stats(){
   }); return out;
 }
 function overall(){ let seen=0,m=0; ALL.forEach(c=>{const s=progress[c.id]; if(s&&s.seen)seen++; if(s&&s.box>=4)m++;}); return {total:ALL.length,seen,mastered:m}; }
+// every rating you've ever given, counted each time — the running history
+function lifetime(){
+  let g=0,y=0,r=0;
+  Object.keys(progress).forEach(id=>{ const s=progress[id]; if(!s||typeof s!=="object") return; g+=s.g||0; y+=s.y||0; r+=s.r||0; });
+  return {g,y,r,total:g+y+r};
+}
+// where each card stands right now, counted once by its most recent rating
+function standing(){
+  let g=0,y=0,r=0,nw=0;
+  ALL.forEach(c=>{ const s=progress[c.id];
+    if(!s||!s.seen){nw++;return;}
+    if(s.grade==="r")r++; else if(s.grade==="y")y++; else g++;
+  });
+  return {g,y,r,nw};
+}
+function lastDrilled(){ let t=0; Object.keys(progress).forEach(id=>{ const s=progress[id]; if(s&&s.last>t)t=s.last; }); return t; }
+function ago(t){
+  if(!t) return "never";
+  const d=Date.now()-t, mins=Math.floor(d/60000), hrs=Math.floor(d/3600000), days=Math.floor(d/86400000);
+  if(mins<1) return "just now";
+  if(mins<60) return mins+(mins===1?" minute ago":" minutes ago");
+  if(hrs<24) return hrs+(hrs===1?" hour ago":" hours ago");
+  return days+(days===1?" day ago":" days ago");
+}
 
 /* ---------------- render ---------------- */
 const root=document.getElementById("root");
-const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const escAttr=s=>esc(s).replace(/"/g,"&quot;");
 function seg(n,color,dim){ return n?`<div style="flex:${n};background:${color};opacity:${dim?.45:1};height:100%"></div>`:""; }
 
 function render(){
-  root.innerHTML = view==="home" ? homeHTML() : drillHTML();
+  root.innerHTML = view==="name" ? nameHTML() : (view==="home" ? homeHTML() : drillHTML());
   wire();
+  if(view==="name"){ const i=root.querySelector("#nameInput"); if(i) i.focus(); }
+}
+
+function nameHTML(){
+  const editing=!!profile.name;
+  return `
+  <div class="nameWrap">
+    <div class="eyebrow">SENIOR FULL-STACK · INTERVIEW DRILL</div>
+    <h1>${editing?"Change your name":"What should I call you?"}</h1>
+    <p class="lede">Your name sits on the scorecard at the bottom of the home screen, next to your all-time nailed, shaky, and missed totals.</p>
+    <input class="nameInput" id="nameInput" type="text" maxlength="24" placeholder="Your name"
+      value="${escAttr(profile.name||"")}" autocomplete="off" autocapitalize="words" spellcheck="false" />
+    <div class="nameActions">
+      <button class="revealBtn" id="saveName">${editing?"Save":"Start drilling"}</button>
+      ${editing?`<button class="ghost" id="cancelName">Cancel</button>`
+               :`<button class="ghost" id="skipName">Skip for now</button>`}
+    </div>
+  </div>`;
 }
 
 function homeHTML(){
@@ -298,11 +379,34 @@ function homeHTML(){
   ${sec("System design & payments","sysdesign")}
   ${sec("AI-native practice","ai")}
   ${sec("Testing","testing")}
+  ${scoreCardHTML(o)}
   <div style="margin-top:26px" id="resetWrap"><button class="ghost" id="resetBtn">Reset progress</button></div>
   ${memoryOnly
     ? `<div class="note">This copy is running somewhere that blocks local storage — likely inside Claude — so ratings last only for this session. Save the file and open it in your own browser to keep your progress across sessions.</div>`
     : `<div class="note">Your progress is saved in this browser on this device. Close it and open the file again and it remembers your ratings.</div>`}
   `;
+}
+
+function scoreCardHTML(o){
+  const lt=lifetime(), sd=standing();
+  return `
+  <div class="sectionLabel">Scorecard</div>
+  <div class="scoreCard">
+    <div class="scoreHead">
+      <span class="scoreName">${profile.name?esc(profile.name):"No name set"}</span>
+      <button class="editName" id="editName">${profile.name?"EDIT NAME":"ADD YOUR NAME"}</button>
+    </div>
+    <div class="scoreGrid">
+      <div class="scoreCell"><div class="num" style="color:${C.green}">${lt.g}</div><div class="lbl">nailed</div></div>
+      <div class="scoreCell"><div class="num" style="color:${C.amber}">${lt.y}</div><div class="lbl">shaky</div></div>
+      <div class="scoreCell"><div class="num" style="color:${C.red}">${lt.r}</div><div class="lbl">missed</div></div>
+    </div>
+    <div class="scoreFoot">
+      ${lt.total} ${lt.total===1?"rating":"ratings"} all time · ${o.seen}/${o.total} cards attempted · ${o.mastered} mastered<br/>
+      standing now · <span style="color:${C.green}">${sd.g} nailed</span> · <span style="color:${C.amber}">${sd.y} shaky</span> · <span style="color:${C.red}">${sd.r} missed</span> · ${sd.nw} untouched<br/>
+      last drilled · ${ago(lastDrilled())}
+    </div>
+  </div>`;
 }
 
 function drillHTML(){
@@ -345,6 +449,17 @@ function wire(){
   const rb=root.querySelector("#revealBtn"); if(rb) rb.onclick=()=>{revealed=true;render();};
   root.querySelectorAll("[data-grade]").forEach(b=>b.onclick=()=>grade(b.dataset.grade));
   const bk=root.querySelector("#backBtn"); if(bk) bk.onclick=()=>{view="home";render();};
+  const en=root.querySelector("#editName"); if(en) en.onclick=()=>{view="name";render();};
+  const sv=root.querySelector("#saveName"); if(sv) sv.onclick=()=>{
+    const i=root.querySelector("#nameInput"), v=(i.value||"").trim();
+    if(!v){ i.focus(); return; }
+    profile.name=v; profile.skipped=false; persistProfile(); view="home"; render();
+  };
+  const sk=root.querySelector("#skipName"); if(sk) sk.onclick=()=>{ profile.skipped=true; persistProfile(); view="home"; render(); };
+  const cn=root.querySelector("#cancelName"); if(cn) cn.onclick=()=>{ view="home"; render(); };
+  const ni=root.querySelector("#nameInput"); if(ni) ni.onkeydown=e=>{
+    if(e.key==="Enter"){ e.preventDefault(); const b=root.querySelector("#saveName"); if(b) b.click(); }
+  };
   const reset=root.querySelector("#resetBtn"); if(reset) reset.onclick=()=>{
     const w=root.querySelector("#resetWrap");
     w.innerHTML=`<span style="color:var(--muted);font-size:13px;margin-right:10px">Erase all ratings?</span>
@@ -360,7 +475,9 @@ window.addEventListener("keydown",e=>{
   else if(revealed){ if(e.key==="1")grade("r"); if(e.key==="2")grade("y"); if(e.key==="3")grade("g"); }
 });
 
-load(); render();
+load();
+if(!profile.name && !profile.skipped) view="name";
+render();
 </script>
 </body>
 </html>
