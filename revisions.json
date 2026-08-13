@@ -1455,6 +1455,94 @@
           "q": "What would you monitor and alert on in a payments system?"
         }
       ]
+    },
+    {
+      "id": "ai",
+      "name": "AI-native engineering workflow",
+      "domain": "ai",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "ai-1",
+          "q": "How do AI coding tools fit into your daily workflow?"
+        },
+        {
+          "id": "ai-2",
+          "q": "Where do you not trust AI-generated code, and how do you validate it before it ships?"
+        },
+        {
+          "id": "ai-3",
+          "q": "How do you review a pull request that is largely AI-generated?"
+        },
+        {
+          "id": "ai-4",
+          "q": "What makes a good request for code, and what do you do when the first result is wrong?"
+        },
+        {
+          "id": "ai-5",
+          "q": "How do you give a tool enough context to produce code that fits your codebase rather than generic code?"
+        },
+        {
+          "id": "ai-6",
+          "q": "How would you set up a repository so AI-assisted changes come out consistent with its conventions?"
+        },
+        {
+          "id": "ai-7",
+          "q": "What changes when a tool can run multi-step — editing files, running tests, and iterating on its own?"
+        },
+        {
+          "id": "ai-8",
+          "q": "How do types, tests, and linters change how much AI-generated code you can safely accept?"
+        },
+        {
+          "id": "ai-9",
+          "q": "A model suggests a package or an API that does not exist. Why does that happen, and what is the risk?"
+        },
+        {
+          "id": "ai-10",
+          "q": "AI is effective at generating tests. What is the catch?"
+        },
+        {
+          "id": "ai-11",
+          "q": "How would you use AI to understand an unfamiliar or legacy codebase?"
+        },
+        {
+          "id": "ai-12",
+          "q": "Is AI more useful for debugging or for writing new code, and why?"
+        },
+        {
+          "id": "ai-13",
+          "q": "How would you use AI as a reviewer rather than as an author?"
+        },
+        {
+          "id": "ai-14",
+          "q": "When is AI the wrong tool, and when should you stop prompting and solve it yourself?"
+        },
+        {
+          "id": "ai-15",
+          "q": "What are the risks of AI tools in a regulated codebase, and how do you keep confidential code out of them?"
+        },
+        {
+          "id": "ai-16",
+          "q": "Would you review AI-generated code differently when it touches authentication, authorization, or money?"
+        },
+        {
+          "id": "ai-17",
+          "q": "What are the intellectual property and licensing concerns with generated code?"
+        },
+        {
+          "id": "ai-18",
+          "q": "How do you use AI without weakening your own understanding of the system?"
+        },
+        {
+          "id": "ai-19",
+          "q": "How would you mentor an engineer on using AI tools safely and effectively?"
+        },
+        {
+          "id": "ai-20",
+          "q": "How would you measure whether AI tools are actually improving engineering output?"
+        }
+      ]
     }
   ]
 }
