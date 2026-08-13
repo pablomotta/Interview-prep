@@ -2140,6 +2140,101 @@
           "q": "How do you weigh latency, consistency, durability, cost, and complexity against each other?"
         }
       ]
+    },
+    {
+      "id": "prep-frontend",
+      "name": "Frontend interview — quick prep",
+      "domain": "frontend",
+      "slope": "climb",
+      "track": "job-prep",
+      "subsetOf": [
+        "react",
+        "frontendfund",
+        "js",
+        "ts"
+      ],
+      "cards": [
+        {
+          "id": "react-1",
+          "q": "Why does a React component re-render, and what actually triggers it?"
+        },
+        {
+          "id": "react-2",
+          "q": "What does referential identity have to do with re-renders, and when do useMemo and useCallback actually help?"
+        },
+        {
+          "id": "react-7",
+          "q": "useEffect is frequently overused. When is it the wrong tool, and what should you use instead?"
+        },
+        {
+          "id": "react-10",
+          "q": "When should state be lifted, colocated, or derived rather than stored?"
+        },
+        {
+          "id": "react-15",
+          "q": "What is the difference between controlled and uncontrolled components, and why does it matter at scale?"
+        },
+        {
+          "id": "react-17",
+          "q": "How do you handle data fetching alongside loading, empty, and error states?"
+        },
+        {
+          "id": "react-19",
+          "q": "When would you use a Server Component versus a Client Component?"
+        },
+        {
+          "id": "frontendfund-1",
+          "q": "Walk me through what a browser does between receiving HTML and painting the first pixels."
+        },
+        {
+          "id": "frontendfund-2",
+          "q": "What is the difference between server-side rendering, client-side rendering, static generation, and incremental regeneration — and how do you choose?"
+        },
+        {
+          "id": "frontendfund-4",
+          "q": "What are Core Web Vitals, and what does each one actually measure?"
+        },
+        {
+          "id": "frontendfund-5",
+          "q": "A page feels slow. How do you find out why, and what do you measure?"
+        },
+        {
+          "id": "frontendfund-8",
+          "q": "How do you decide what loads eagerly, what loads lazily, and what gets split out of the main bundle?"
+        },
+        {
+          "id": "frontendfund-13",
+          "q": "How do you make a complex interface accessible?"
+        },
+        {
+          "id": "frontendfund-20",
+          "q": "How do you distinguish server state from client state, and where should each live?"
+        },
+        {
+          "id": "js-1",
+          "q": "What is a closure, and why does it matter?"
+        },
+        {
+          "id": "js-6",
+          "q": "What is a promise, what states does it have, and how do errors propagate through a chain?"
+        },
+        {
+          "id": "js-11",
+          "q": "What is the difference between a shallow copy and a deep copy, and how do you update nested data immutably?"
+        },
+        {
+          "id": "ts-2",
+          "q": "What is the difference between `unknown`, `any`, and `never`?"
+        },
+        {
+          "id": "ts-6",
+          "q": "How do generics and generic constraints let you write a type-safe, reusable API?"
+        },
+        {
+          "id": "ts-11",
+          "q": "What is a discriminated union, and why is it better than one type with many optional fields?"
+        }
+      ]
     }
   ]
 }
