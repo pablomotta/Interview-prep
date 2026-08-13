@@ -403,6 +403,122 @@
           "q": "When does an API gateway help, and what does it risk becoming?"
         }
       ]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud, delivery & reliability",
+      "domain": "backend",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "cloud-1",
+          "q": "What problem do containers solve, and what goes into a good production image?"
+        },
+        {
+          "id": "cloud-2",
+          "q": "Why run an orchestrator like Kubernetes or ECS rather than just starting containers yourself?"
+        },
+        {
+          "id": "cloud-3",
+          "q": "What are readiness and liveness probes, and what happens when you get them wrong?"
+        },
+        {
+          "id": "cloud-4",
+          "q": "When is serverless the right choice, and what are its real limitations?"
+        },
+        {
+          "id": "cloud-5",
+          "q": "How does a load balancer decide where to send a request, and how does it know an instance is healthy?"
+        },
+        {
+          "id": "cloud-6",
+          "q": "What should a service autoscale on, and why is CPU often the wrong signal?"
+        },
+        {
+          "id": "cloud-7",
+          "q": "When does a CDN or edge cache belong in front of your service?"
+        },
+        {
+          "id": "cloud-8",
+          "q": "How do you manage secrets and environment variables?"
+        },
+        {
+          "id": "cloud-9",
+          "q": "What is Infrastructure as Code, and what do Terraform, CDK, and CloudFormation each give you?"
+        },
+        {
+          "id": "cloud-10",
+          "q": "How do you keep development, staging, and production from drifting apart?"
+        },
+        {
+          "id": "cloud-11",
+          "q": "What does a good CI/CD pipeline look like, stage by stage?"
+        },
+        {
+          "id": "cloud-12",
+          "q": "How do you run database migrations as part of a deploy without downtime?"
+        },
+        {
+          "id": "cloud-13",
+          "q": "How do you deploy a change safely and roll it back when it goes wrong?"
+        },
+        {
+          "id": "cloud-14",
+          "q": "How do feature flags reduce release risk, and what do they cost you if you keep them?"
+        },
+        {
+          "id": "cloud-15",
+          "q": "How do you drain connections and shut down an instance without dropping in-flight requests?"
+        },
+        {
+          "id": "cloud-16",
+          "q": "How do you make background jobs reliable, and what should happen to a message that keeps failing?"
+        },
+        {
+          "id": "cloud-17",
+          "q": "Why do retries need exponential backoff and jitter?"
+        },
+        {
+          "id": "cloud-18",
+          "q": "What should be logged in production, and what should never be?"
+        },
+        {
+          "id": "cloud-19",
+          "q": "Why structured logging, and where do logs actually go once they leave the service?"
+        },
+        {
+          "id": "cloud-20",
+          "q": "What metrics and alerts would you put on a service you own?"
+        },
+        {
+          "id": "cloud-21",
+          "q": "What are service-level indicators, objectives, and error budgets, and how do they change decisions?"
+        },
+        {
+          "id": "cloud-22",
+          "q": "How do you tell an actionable alert from noise, and what do you do about a noisy one?"
+        },
+        {
+          "id": "cloud-23",
+          "q": "How do you respond during a major production incident?"
+        },
+        {
+          "id": "cloud-24",
+          "q": "What should happen after an incident, and what makes a postmortem useful rather than performative?"
+        },
+        {
+          "id": "cloud-25",
+          "q": "What makes on-call sustainable — runbooks, escalation, and alert routing?"
+        },
+        {
+          "id": "cloud-26",
+          "q": "How would you deliberately test that your system survives failure?"
+        },
+        {
+          "id": "cloud-27",
+          "q": "What actually drives cloud cost, and how would you find and cut waste?"
+        }
+      ]
     }
   ]
 }
