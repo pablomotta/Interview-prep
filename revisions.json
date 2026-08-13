@@ -1,0 +1,151 @@
+{
+  "_meta": {
+    "title": "Category revisions — proposed",
+    "status": "in progress, one category at a time; not yet merged into index.html",
+    "schemaNote": "Each category lists its final card set. Cards marked \"source\":\"existing\" are unchanged and carry over from the current bank by id. Cards with a full 'a' are new or rewritten. 'replaces' lists the card ids a merged card absorbs.",
+    "categoriesReviewed": ["apidesign"],
+    "categoriesRemaining": ["nodejs", "db", "bearch", "cloud", "core-backend", "core-databases", "frontendfund", "react", "js", "ts", "testing", "gensys", "realtime", "payments", "ai", "rag", "commerce", "behavioral", "core-career", "core-leadership", "core-frontend-react", "core-js-ts", "core-delivery", "core-sysdesign"]
+  },
+  "categories": [
+    {
+      "id": "apidesign",
+      "name": "Backend & API design",
+      "domain": "backend",
+      "slope": "climb",
+      "before": 24,
+      "after": 27,
+      "summary": "Merged 4 redundant clusters (9 cards into 5), reframed 3 vague/junior questions, added 7 covering HTTP caching, GraphQL, timeouts, contracts, and long-running operations.",
+      "cards": [
+        { "id": "apidesign-1", "source": "existing", "q": "What do Hypertext Transfer Protocol status-code classes communicate?" },
+        {
+          "id": "apidesign-2",
+          "level": 3,
+          "q": "Walk me through designing the API for a feature — say, saved carts. What are the resources, and what does each endpoint look like?",
+          "a": "I start from the nouns rather than the verbs, because the resources are what the API is actually about. For saved carts the resources are the cart itself and the line items inside it, so the shapes are a cart with an owner and a status, and items that each reference a product and a quantity.||Then the operations fall out of that. Creating a cart is a POST to the collection returning the created resource with its identifier. Reading one is a GET on that identifier. Adding an item is a POST to the cart's items sub-collection, changing a quantity is a PATCH on the specific item, and removing one is a DELETE. I'd resist inventing verb endpoints like slash-add-item, because once you start down that path the API stops being predictable and every new operation needs its own convention.||The details that make it good to consume are consistency and honesty about state. Identifiers and field naming follow one convention everywhere. Errors return a machine-readable code alongside a human-readable message so clients can branch on the code rather than string-matching. Anything that can return many items is paginated from day one, because retrofitting pagination is a breaking change.||I'd also think about the operations that don't fit neatly, like merging a guest cart into a logged-in user's cart. That's genuinely an action rather than a resource mutation, and I'd rather model it explicitly as its own endpoint than contort it into a PATCH that does something surprising.",
+          "tag": "Teachable",
+          "note": "Replaces the old 'how do you design a good API?' — too broad to answer well. Anchor on a concrete feature: name resources first, then let operations follow."
+        },
+        {
+          "id": "apidesign-3",
+          "level": 3,
+          "q": "An endpoint's latency has grown as traffic increased. How do you find the cause and what levers do you have?",
+          "a": "I measure before I theorise, and I look at percentiles rather than averages, because an average hides the tail where users actually feel pain. If the median is fine and p99 is terrible, that's a different problem from everything being uniformly slow, and it usually points at contention, a cache miss path, or a slow dependency rather than the code itself.||Then I want to know where the time goes inside the request. Tracing tells me the breakdown across the handler, the database, and downstream calls. The most common cause I'd expect is the database: a query that was fine at small data volume and no longer is, usually a missing index or an N+1 pattern where the code issues one query per item in a loop. Those degrade non-linearly, which is exactly why they surface as traffic grows rather than on day one.||The levers, roughly in order of cost, are: fix the query or the index, remove redundant work per request, add caching for the read-heavy parts that tolerate staleness, and only then add capacity. Scaling out an inefficient endpoint just buys time at higher cost.||I'd also check whether the endpoint is doing work that doesn't need to be in the request path at all. If part of the response is expensive and not immediately needed, moving it to a background job or a separate call is often a bigger win than optimising the existing path.",
+          "tag": "Teachable",
+          "note": "Replaces 'what makes an API scalable?' — too vague. Lead with percentiles over averages, and name N+1 as the likeliest culprit."
+        },
+        { "id": "apidesign-4", "source": "existing", "q": "How do you design pagination?" },
+        {
+          "id": "apidesign-5",
+          "level": 3,
+          "replaces": ["apidesign-5", "apidesign-19"],
+          "q": "How do you protect an API from abusive traffic and unexpectedly expensive requests?",
+          "a": "There are two different threats here. Abusive traffic is too many requests, and expensive requests are a small number that each cost far too much, so a request-count limit alone misses the second one entirely.||For volume, I rate limit on the dimension that actually identifies the caller, usually an API key or user identity rather than IP address, since IP is both shared by many legitimate users and trivially rotated by an attacker. A token bucket is the usual mechanism because it allows a reasonable burst while holding the sustained rate. The limit state has to live somewhere shared, like Redis, or each instance enforces its own limit and the effective ceiling multiplies by instance count. I'd return 429 with a Retry-After header so well-behaved clients back off correctly instead of hammering.||For expense, the controls are about bounding the work a single request can ask for: a maximum page size so nobody requests a million records, a cap on request body size, limits on how deep or complex a query can be, and a server-side timeout so one pathological request can't occupy a worker indefinitely. Pagination limits in particular are the ones people forget, and an unbounded limit parameter is a denial-of-service waiting to happen.||Above all of it I'd want visibility: metrics on who's being limited and which endpoints are slowest, because the first sign of a problem is usually a shift in that distribution rather than an outage.",
+          "tag": "Teachable",
+          "note": "Merges rate limiting with expensive-request protection. The key distinction: count limits don't stop one enormous query. Mention shared limit state across instances."
+        },
+        {
+          "id": "apidesign-6",
+          "level": 3,
+          "replaces": ["apidesign-6", "apidesign-20"],
+          "q": "How do you evolve an API without breaking existing clients?",
+          "a": "The governing rule is that once a client depends on something, removing or changing its meaning is a breaking change, so I evolve additively wherever possible. Adding a new optional field or a new endpoint is safe. Removing a field, renaming one, changing a type, tightening validation, or changing the meaning of an existing value is not, and tightening validation is the one people underestimate because it looks like a bug fix.||When additive change isn't enough, I version. My default is a version in the URL path because it's explicit, easy to route, and obvious in logs. Header-based versioning is cleaner in theory but harder to debug and easier to get wrong. What I want to avoid is versioning reflexively, since every live version is code you maintain and test, so I'd rather absorb some awkwardness in the schema than run four versions.||Retiring a version is the part that's actually hard, and it's an operational problem more than a technical one. I need to know who's still calling it, which means per-version, per-client usage metrics. Then it's advance notice, a documented sunset date, and direct contact with the remaining heavy users. Turning something off you can't measure is how you take down a customer.||For internal consumers I'd rather coordinate a migration than carry a version indefinitely. For public or third-party clients you have no such control, so the deprecation window has to be genuinely long and communicated more than once.",
+          "tag": "Teachable",
+          "note": "Merges versioning with non-breaking evolution — the same question twice. The strongest point is that you can't retire a version you can't measure usage on."
+        },
+        { "id": "apidesign-7", "source": "existing", "q": "How do you validate API input?" },
+        {
+          "id": "apidesign-8",
+          "level": 2,
+          "q": "How do you handle cross-cutting concerns like authentication, logging, and tracing without scattering them through every handler?",
+          "a": "These belong in a layer that runs around every request rather than inside each handler, which in most frameworks is middleware. The reason to centralise isn't tidiness, it's that a cross-cutting concern applied by hand in each handler will eventually be forgotten in one, and the one where authentication is forgotten is a security hole.||Order matters and is worth being deliberate about, because middleware forms a pipeline. Request identifier assignment goes first so everything downstream can log with it. Then parsing and basic request-level checks, then authentication, then authorization, then the handler. Error handling wraps the outside so anything thrown anywhere lands in one place and becomes a consistent response rather than a leaked stack trace.||The discipline I'd apply is keeping middleware genuinely generic. Once a piece of middleware starts branching on specific routes it's really business logic in the wrong place, and it becomes something nobody can safely change because its behaviour depends on the whole route table.||The concerns that belong here are the ones that are the same everywhere: request identifiers, authentication, request logging, tracing spans, compression, and the outermost error boundary. Anything that varies per resource belongs in the handler or the service layer.",
+          "tag": "Teachable",
+          "note": "Replaces 'what is middleware?' — definitional and junior. Pipeline ordering and 'route-branching middleware is business logic in the wrong place' are the senior points."
+        },
+        { "id": "apidesign-9", "source": "existing", "q": "How do you design error handling and logging?" },
+        { "id": "apidesign-10", "source": "existing", "q": "How do you implement authentication securely?" },
+        { "id": "apidesign-11", "source": "existing", "q": "How do you implement authorization for roles, resources, and ownership?" },
+        {
+          "id": "apidesign-12",
+          "level": 3,
+          "replaces": ["apidesign-12", "apidesign-13"],
+          "q": "How do you make an operation safe to retry?",
+          "a": "The problem is that a client can never distinguish a request that failed from one that succeeded but whose response was lost, so it has to retry, and if the operation isn't safe to repeat that retry causes a duplicate. In anything touching money or external side effects, that's the bug that actually costs you.||Some methods are naturally safe: a GET, a PUT that sets an absolute value, or a DELETE can be repeated without changing the outcome. The dangerous one is POST, because create-a-thing repeated means two things. So for those I use an idempotency key: the client generates a unique value per logical operation and sends it with the request, and the server records it.||The part that matters is where that guarantee lives. It has to be a uniqueness constraint in the database, not a check-then-insert in application code, because two concurrent retries will both pass the check and both insert. With the constraint, the second insert fails and I return the stored result of the first instead of doing the work again. That turns 'don't duplicate' from a hope into something the database enforces under concurrency.||The keys need a stored response and a retention window so a retry minutes later returns the same answer, and I'd pair this with sensible client behaviour: exponential backoff with jitter so retries don't synchronise into a stampede, a retry cap, and no retrying on a 4xx, which won't succeed no matter how many times you send it.",
+          "tag": "Teachable",
+          "note": "Merges idempotency with retry-safety — idempotency IS the answer to retries. The database-constraint-not-application-check point is the one interviewers listen for."
+        },
+        {
+          "id": "apidesign-13",
+          "level": 3,
+          "replaces": ["apidesign-14", "apidesign-24"],
+          "q": "A dependency your endpoint relies on is slow or down. How should the endpoint behave?",
+          "a": "The first decision is whether that dependency is essential to the response or merely enriching it. If a product page needs the catalogue but only decorates with a recommendations widget, those deserve completely different failure behaviour, and conflating them is how one non-critical service takes down a page.||For non-essential dependencies I degrade: a short timeout, and on failure return the response without that piece, or with a cached or default version of it. The user gets a page that mostly works rather than an error. That has to be a deliberate design decision though, because silently omitting data the caller assumes is present is its own kind of bug — the response should make it evident that a section is unavailable.||For essential dependencies I fail fast and clearly. A timeout well below my own response budget, so I'm not holding a connection open for thirty seconds and exhausting my own capacity waiting on something already dead. A circuit breaker so that after repeated failures I stop calling it and return an error immediately, which both protects my service's resources and gives the struggling dependency room to recover instead of being hammered.||Partial failure in a multi-step operation is the harder case, where some writes succeeded and one didn't. There I need to decide up front between compensating actions to undo what happened, or making the whole thing idempotent and retryable so a repeat converges to the right state. What I want to avoid is leaving the system in a state nobody designed for and only discovering it during an incident.",
+          "tag": "Teachable",
+          "note": "Merges partial failures with graceful degradation. The essential-vs-enriching split is the framing that makes the rest of the answer follow."
+        },
+        { "id": "apidesign-14", "source": "existing", "replaces": ["apidesign-15"], "q": "How do you handle an API request that requires several downstream services?" },
+        { "id": "apidesign-15", "source": "existing", "q": "How do you design a webhook receiver?" },
+        { "id": "apidesign-16", "source": "existing", "q": "How do you handle webhooks that arrive twice or out of order?" },
+        { "id": "apidesign-17", "source": "existing", "q": "When should an API operation be synchronous versus asynchronous?" },
+        { "id": "apidesign-18", "source": "existing", "q": "How do you design an API for bulk operations?" },
+        { "id": "apidesign-19", "source": "existing", "q": "How do you decide what belongs in the API response?" },
+        { "id": "apidesign-20", "source": "existing", "q": "How do you propagate request and correlation identifiers?" },
+        {
+          "id": "apidesign-21",
+          "level": 3,
+          "q": "How does HTTP caching work, and how would you use it on an API?",
+          "a": "HTTP has a caching system built in and most APIs ignore it, which means re-sending identical payloads over and over. The two mechanisms are freshness and validation. Freshness is Cache-Control with a max-age: the client may reuse the response without asking again until it expires. Validation is for when it has expired but probably hasn't changed — the server sends an ETag, essentially a fingerprint of the response, the client sends it back in If-None-Match, and if it still matches the server replies 304 Not Modified with no body at all.||The 304 path is the underrated one. You still pay the round trip and the server still does enough work to compute the fingerprint, but you skip serialising and transferring the payload, which for a large response is most of the cost.||The directives that matter in practice: public versus private determines whether shared caches like a CDN may store it, and anything user-specific must be private or you risk serving one user's data to another, which is a genuine security bug rather than a performance one. no-store means don't persist it anywhere, which is what you want for sensitive data. no-cache is the confusingly named one — it means store it but always revalidate before use.||My rule of thumb is that reference data with a natural staleness tolerance, like a product catalogue, gets real cache lifetimes and CDN caching. Personalised data gets private with validation. Anything money-related or authorisation-sensitive I keep out of caches entirely, because a stale balance is worse than a slow one.",
+          "tag": "Teachable",
+          "note": "Nothing in the bank covered HTTP caching. The public-vs-private security angle is the detail that shows real understanding, not just knowing the header names."
+        },
+        {
+          "id": "apidesign-22",
+          "level": 2,
+          "q": "How do you set timeouts across a request path, and what goes wrong without them?",
+          "a": "Without a timeout the default is to wait forever, and the failure mode is worse than an error: a dependency that hangs rather than fails will hold every connection and worker that's waiting on it, so a slow dependency takes down a service that would have survived that dependency being cleanly down. Slow is more dangerous than dead.||So every outbound call gets an explicit timeout, and I want them to form a sensible budget rather than being picked independently. If my endpoint promises a response within two seconds, and it makes three downstream calls, those can't each have a two-second timeout — the numbers have to fit inside the parent budget with room to spare. Timeouts that increase as you go deeper are the classic mistake, because the outer request gives up while inner work continues, wasting capacity on a result nobody will read.||Timeouts also interact directly with retries. A timeout doesn't tell you whether the work happened, only that you stopped waiting, so retrying after one is exactly the case that produces duplicates unless the operation is idempotent. That's why timeout policy and idempotency have to be designed together rather than separately.||I'd also set connect timeouts distinctly from read timeouts, since failing to establish a connection is a different signal from a server accepting and then being slow, and pair the whole thing with a circuit breaker so repeated timeouts stop the calls entirely rather than continuing to consume resources.",
+          "tag": "Teachable",
+          "note": "Not asked anywhere in the bank. 'Slow is more dangerous than dead' plus the nested budget point are what make this a senior answer."
+        },
+        {
+          "id": "apidesign-23",
+          "level": 2,
+          "q": "How do you handle an operation that takes too long for a single request?",
+          "a": "Once work exceeds a few seconds, holding the connection open stops being viable — you hit client, proxy, and load balancer timeouts, you occupy a worker for the duration, and the client has no way to recover if the connection drops. So the operation gets split from its result.||The standard shape is that the request accepts the work and returns immediately with 202 Accepted, a job identifier, and a location the client can poll for status. The actual work happens on a queue with a worker. The client polls that status endpoint, which reports pending, running, succeeded, or failed, and on success points at the result. For clients that would rather not poll, a webhook or a push over an open connection delivers the completion instead.||The design details that matter: the job needs a real state machine including a terminal failure state with a reason, because a job that silently disappears is the worst outcome for a client. Submitting the same logical work twice should be idempotent so a client retry doesn't spawn a second job. And results need a retention policy, since a client may never come back for them.||I'd also make sure progress is meaningful where the work is long — a percentage or a processed count — because for something like a bulk import the difference between running and stuck is the thing the user actually wants to know.",
+          "tag": "Teachable",
+          "note": "The 202 + polling pattern wasn't covered. Emphasise the terminal failure state — jobs that vanish silently are the real-world failure."
+        },
+        {
+          "id": "apidesign-24",
+          "level": 3,
+          "q": "How do you design a GraphQL schema, and how does that differ from designing REST resources?",
+          "a": "The mental shift is that a GraphQL schema is a graph of types and their relationships rather than a set of endpoints, and the client chooses what to traverse. So the design question isn't 'what endpoints do I need' but 'what are the entities and how are they connected', and I aim to model the domain rather than the screens, because designing around today's UI is what makes a schema need constant reshaping.||Concretely, that means types with fields that link to other types, so a cart exposes its items and each item exposes its product, and a client can fetch that whole shape in one request. Mutations I name after the business operation rather than the table change, so it's checkoutCart rather than updateCartStatus, and I return the modified entities so the client can update its cache without a refetch.||A few conventions save real pain later. Nullability is a genuine design decision, since marking a field non-null means an error there can null out the whole parent, so I'm deliberate rather than defaulting either way. Enums over free strings for closed sets. Connections with cursors for lists, because offset pagination breaks under concurrent writes. Mutations taking a single input object, which keeps them evolvable.||Evolution differs from REST in a useful way: because clients request specific fields, I can see what's actually used and deprecate a field with confidence rather than guessing. Additive changes are safe, and the deprecated directive lets a field linger with a warning while consumers migrate. Versioning a whole GraphQL API is generally the wrong instinct.",
+          "tag": "Teachable",
+          "note": "Given the Hydrogen/Shopify background this is likely to come up. 'Model the domain, not the screens' is the line that matters."
+        },
+        {
+          "id": "apidesign-25",
+          "level": 3,
+          "q": "What is the N+1 problem in a GraphQL resolver, and how do you solve it?",
+          "a": "It comes from the way resolvers execute. Each field has its own resolver, and a resolver for a field on a list type runs once per item in that list. So a query for fifty carts, each asking for its customer, runs one query for the carts and then fifty separate queries for customers — the N+1 pattern, except it emerges from the query shape rather than from a loop someone wrote, which is why it's easy to miss in review.||The standard solution is a batching loader, DataLoader being the common implementation. Instead of querying immediately, each resolver call registers the key it wants. The loader collects all the keys requested within one tick of the event loop, then issues a single query for all of them and distributes the results back. Fifty-one queries become two.||It also deduplicates within a request, so if twenty of those carts belong to the same customer that customer is fetched once. The important detail is that a loader instance must be created per request, not shared globally, otherwise you're caching one user's data across requests and serving it to someone else — a correctness and security bug rather than a performance one.||The broader point is that GraphQL moves this cost from the client to the server. REST's over-fetching problem becomes the server's query-explosion problem, and a schema that looks clean can generate pathological database load. So I'd want query-level visibility in production, not just endpoint-level, because in GraphQL the endpoint is always the same one.",
+          "tag": "Teachable",
+          "note": "The per-request loader instance detail is critical — a global loader is a cross-user data leak. Say it explicitly."
+        },
+        {
+          "id": "apidesign-26",
+          "level": 3,
+          "q": "How do you stop a client from sending a GraphQL query that overwhelms your server?",
+          "a": "This is GraphQL's structural trade-off: letting the client specify the shape means the client can specify an expensive one. Because relationships can be traversed in both directions, a query can nest cyclically — a cart's customer's carts' customers — and grow exponentially while staying a short, innocent-looking document. The single endpoint also means per-endpoint rate limiting tells you nothing about cost.||The first control is a depth limit, rejecting queries nested beyond a threshold, which cheaply kills the pathological recursive case. The second is complexity analysis, where each field carries a cost, list fields multiply by the requested page size, and the total is computed before execution and rejected past a budget. That's the more accurate control because a shallow query fetching ten thousand items is expensive despite being shallow.||Then rate limiting should be based on that computed cost rather than request count, so a caller gets a budget of complexity per window rather than a number of requests. That's how the public APIs at scale do it, and it's the only version that reflects actual load.||For a known set of clients the strongest option is persisted queries: the server accepts only queries from an approved list, identified by hash, so arbitrary queries are impossible by construction. I'd also enforce pagination limits on every list field and disable introspection in production for a non-public API, since it hands an attacker the full schema to explore.",
+          "tag": "Teachable",
+          "note": "Persisted queries are the strongest answer for a first-party client and most candidates don't reach it. Also note why per-endpoint rate limiting fails here."
+        },
+        {
+          "id": "apidesign-27",
+          "level": 2,
+          "q": "How do you document an API and keep the documentation honest?",
+          "a": "The failing mode I care about is documentation drifting from behaviour, at which point it's worse than nothing because people trust it. So the goal is a single source of truth that can't silently diverge, rather than a hand-maintained document alongside the code.||The practical approach is a machine-readable specification, OpenAPI for REST or the schema itself for GraphQL, that lives with the code. GraphQL has an advantage here since the schema is the contract and is introspectable by construction. For REST I'd rather generate the spec from the same types and validation schemas the server actually enforces than write it separately, because anything written separately will drift.||Then I'd enforce it in CI. Contract tests assert that responses match the spec, so a change in behaviour that isn't reflected in the specification fails the build. That's what converts documentation from a promise into something verified.||Beyond the reference, the parts people actually need are the ones a generated spec doesn't give you: authentication setup, a working example request, pagination and rate-limit behaviour, the error codes and what a client should do about each, and a changelog with deprecations. A schema tells you the shape of things; it doesn't tell you how to use the API correctly, and that gap is where support burden comes from.",
+          "tag": "Adjacent",
+          "note": "The point that matters: generate the spec from what the server enforces, and verify it in CI. Otherwise docs drift and become actively harmful."
+        }
+      ]
+    }
+  ]
+}
