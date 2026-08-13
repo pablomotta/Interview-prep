@@ -1671,6 +1671,118 @@
           "q": "What would you log and monitor for an LLM feature in production?"
         }
       ]
+    },
+    {
+      "id": "commerce",
+      "name": "Commerce & Shopify",
+      "domain": "commerce",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "commerce-1",
+          "q": "Describe a commerce-platform migration you worked on."
+        },
+        {
+          "id": "commerce-2",
+          "q": "How would you decide between a Shopify theme, Hydrogen, or another headless storefront?"
+        },
+        {
+          "id": "commerce-3",
+          "q": "How would you migrate a storefront without disrupting customers, and how would you know it worked?"
+        },
+        {
+          "id": "commerce-4",
+          "q": "How do you preserve SEO through a storefront migration — URLs, redirects, and structured data?"
+        },
+        {
+          "id": "commerce-5",
+          "q": "How do you model products with variants, options, and bundles?"
+        },
+        {
+          "id": "commerce-6",
+          "q": "How have you integrated a frontend application with Shopify's APIs?"
+        },
+        {
+          "id": "commerce-7",
+          "q": "How do you keep products, inventory, orders, and customers in sync with external systems?"
+        },
+        {
+          "id": "commerce-8",
+          "q": "How do you handle Shopify API rate limits?"
+        },
+        {
+          "id": "commerce-9",
+          "q": "How do you consume commerce webhooks reliably when they can be delayed, duplicated, or lost?"
+        },
+        {
+          "id": "commerce-10",
+          "q": "How would you design a custom Shopify application?"
+        },
+        {
+          "id": "commerce-11",
+          "q": "How do Shopify Functions differ from an external backend service?"
+        },
+        {
+          "id": "commerce-12",
+          "q": "How would you implement promotion or discount logic safely?"
+        },
+        {
+          "id": "commerce-13",
+          "q": "How would you handle the checkout step, and what are you constrained by on a hosted platform?"
+        },
+        {
+          "id": "commerce-14",
+          "q": "How do you sell subscriptions on a commerce platform, and what changes for the storefront?"
+        },
+        {
+          "id": "commerce-15",
+          "q": "How do you handle the order lifecycle through fulfilment, and what can go wrong?"
+        },
+        {
+          "id": "commerce-16",
+          "q": "How would you support returns, exchanges, and cancellations?"
+        },
+        {
+          "id": "commerce-17",
+          "q": "How would you sell into multiple countries — currencies, languages, catalogues, and tax?"
+        },
+        {
+          "id": "commerce-18",
+          "q": "How would you build product search, collections, and merchandising?"
+        },
+        {
+          "id": "commerce-19",
+          "q": "How do you cache a storefront page that is partly personalised?"
+        },
+        {
+          "id": "commerce-20",
+          "q": "How would you prepare a storefront for a product drop or a traffic spike?"
+        },
+        {
+          "id": "commerce-21",
+          "q": "How do you build a content-management setup that business users can actually run themselves?"
+        },
+        {
+          "id": "commerce-22",
+          "q": "How would you design preview, staging, and production workflows for commerce content?"
+        },
+        {
+          "id": "commerce-23",
+          "q": "How do you manage merchant configuration that runtime commerce logic depends on?"
+        },
+        {
+          "id": "commerce-24",
+          "q": "How would you run an A/B test on a storefront without hurting performance?"
+        },
+        {
+          "id": "commerce-25",
+          "q": "How do you handle analytics and tracking, including consent and server-side events?"
+        },
+        {
+          "id": "commerce-26",
+          "q": "How do you troubleshoot an issue that crosses the storefront, your backend, and the commerce platform?"
+        }
+      ]
     }
   ]
 }
