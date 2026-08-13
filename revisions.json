@@ -2425,6 +2425,88 @@
           "q": "How do you deploy a change safely and roll it back when it goes wrong?"
         }
       ]
+    },
+    {
+      "id": "prep-ai-native",
+      "name": "AI-native — quick prep add-on",
+      "domain": "ai",
+      "slope": "climb",
+      "track": "job-prep",
+      "addOn": true,
+      "pairsWith": [
+        "prep-fullstack",
+        "prep-frontend"
+      ],
+      "subsetOf": [
+        "ai",
+        "rag"
+      ],
+      "cards": [
+        {
+          "id": "ai-1",
+          "q": "How do AI coding tools fit into your daily workflow?"
+        },
+        {
+          "id": "ai-2",
+          "q": "Where do you not trust AI-generated code, and how do you validate it before it ships?"
+        },
+        {
+          "id": "ai-3",
+          "q": "How do you review a pull request that is largely AI-generated?"
+        },
+        {
+          "id": "ai-7",
+          "q": "What changes when a tool can run multi-step — editing files, running tests, and iterating on its own?"
+        },
+        {
+          "id": "ai-8",
+          "q": "How do types, tests, and linters change how much AI-generated code you can safely accept?"
+        },
+        {
+          "id": "ai-16",
+          "q": "Would you review AI-generated code differently when it touches authentication, authorization, or money?"
+        },
+        {
+          "id": "rag-1",
+          "q": "What is Retrieval-Augmented Generation, and what problem does it solve?"
+        },
+        {
+          "id": "rag-2",
+          "q": "What is an embedding, in plain language?"
+        },
+        {
+          "id": "rag-3",
+          "q": "When does a vector database earn its place, and when is it unnecessary?"
+        },
+        {
+          "id": "rag-6",
+          "q": "How do you decide how to chunk documents, and what breaks at each extreme?"
+        },
+        {
+          "id": "rag-16",
+          "q": "How do you choose between RAG, fine-tuning, and just a better prompt?"
+        },
+        {
+          "id": "rag-17",
+          "q": "What is prompt injection, and how do you defend an application against it?"
+        },
+        {
+          "id": "rag-19",
+          "q": "How do you get reliable structured output from a model?"
+        },
+        {
+          "id": "rag-20",
+          "q": "How does tool use or function calling work, and what can go wrong with it?"
+        },
+        {
+          "id": "rag-23",
+          "q": "What drives cost and latency in an LLM feature, and how do you control both?"
+        },
+        {
+          "id": "rag-28",
+          "q": "How do you build an evaluation set and know a prompt change was an improvement?"
+        }
+      ]
     }
   ]
 }
