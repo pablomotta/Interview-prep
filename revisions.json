@@ -303,6 +303,106 @@
           "q": "What is your backup and recovery strategy, and how do you know a restore actually works?"
         }
       ]
+    },
+    {
+      "id": "bearch",
+      "name": "Backend architecture & distributed systems",
+      "domain": "backend",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "bearch-1",
+          "q": "Monolith versus microservices: how do you choose, and where do you draw service boundaries?"
+        },
+        {
+          "id": "bearch-2",
+          "q": "You need to extract a service out of an existing monolith. How do you do it without a risky big-bang rewrite?"
+        },
+        {
+          "id": "bearch-3",
+          "q": "Why does it matter that a service is stateless, and what breaks when it isn't?"
+        },
+        {
+          "id": "bearch-4",
+          "q": "How do you decide between a synchronous service call and an asynchronous event?"
+        },
+        {
+          "id": "bearch-5",
+          "q": "What is the outbox pattern, and what problem does it solve?"
+        },
+        {
+          "id": "bearch-6",
+          "q": "What is change data capture, and when would you use it to integrate two systems?"
+        },
+        {
+          "id": "bearch-7",
+          "q": "What is the difference between a message queue and an event log, and when do you want each?"
+        },
+        {
+          "id": "bearch-8",
+          "q": "What do at-least-once, at-most-once, and exactly-once delivery actually guarantee?"
+        },
+        {
+          "id": "bearch-9",
+          "q": "How do you make an event consumer idempotent so reprocessing is safe?"
+        },
+        {
+          "id": "bearch-10",
+          "q": "How do you preserve event ordering when it matters, and what do you give up to get it?"
+        },
+        {
+          "id": "bearch-11",
+          "q": "What information should an event carry, and how do you evolve an event schema without breaking consumers?"
+        },
+        {
+          "id": "bearch-12",
+          "q": "How do you handle a transaction that spans several services?"
+        },
+        {
+          "id": "bearch-13",
+          "q": "What does eventual consistency mean for a user-facing feature?"
+        },
+        {
+          "id": "bearch-14",
+          "q": "What does the CAP theorem actually force you to choose between, and how does that shape a design?"
+        },
+        {
+          "id": "bearch-15",
+          "q": "One service is slow or failing. How do you stop it taking down everything that depends on it?"
+        },
+        {
+          "id": "bearch-16",
+          "q": "What is a retry storm, and how do you keep recovery from making an outage worse?"
+        },
+        {
+          "id": "bearch-17",
+          "q": "How does a system shed load or apply backpressure when it is over capacity?"
+        },
+        {
+          "id": "bearch-18",
+          "q": "How do services find and talk to each other as instances come and go?"
+        },
+        {
+          "id": "bearch-19",
+          "q": "How do you trace a single request across several services?"
+        },
+        {
+          "id": "bearch-20",
+          "q": "How do you partition data or traffic across nodes, and what does consistent hashing solve?"
+        },
+        {
+          "id": "bearch-21",
+          "q": "Without a shared clock, how do you reason about the order of events across machines?"
+        },
+        {
+          "id": "bearch-22",
+          "q": "When does a system need leader election or distributed coordination?"
+        },
+        {
+          "id": "bearch-23",
+          "q": "When does an API gateway help, and what does it risk becoming?"
+        }
+      ]
     }
   ]
 }
