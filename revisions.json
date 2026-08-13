@@ -1151,6 +1151,110 @@
           "q": "What is your view of test-driven development?"
         }
       ]
+    },
+    {
+      "id": "gensys",
+      "name": "General system design",
+      "domain": "sysdesign",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "gensys-1",
+          "q": "How do you approach an open-ended system-design question?"
+        },
+        {
+          "id": "gensys-2",
+          "q": "What requirements would you clarify before proposing any design, and which answers would actually change it?"
+        },
+        {
+          "id": "gensys-3",
+          "q": "How do you estimate traffic, storage, and throughput well enough to size a system?"
+        },
+        {
+          "id": "gensys-4",
+          "q": "How do you weigh latency, consistency, durability, cost, and complexity against each other?"
+        },
+        {
+          "id": "gensys-5",
+          "q": "How do you decide what to build first and what to defer?"
+        },
+        {
+          "id": "gensys-6",
+          "q": "How do you identify the main risks in a design and communicate them?"
+        },
+        {
+          "id": "gensys-7",
+          "q": "How would you diagram and explain an architecture to a room of engineers?"
+        },
+        {
+          "id": "gensys-8",
+          "q": "How would a design change if traffic grew by a hundred times?"
+        },
+        {
+          "id": "gensys-9",
+          "q": "How would you design a system to run across multiple geographic regions?"
+        },
+        {
+          "id": "gensys-10",
+          "q": "Design a URL shortener."
+        },
+        {
+          "id": "gensys-11",
+          "q": "Design a rate limiter that works across many service instances."
+        },
+        {
+          "id": "gensys-12",
+          "q": "Design a notification system that sends email, push, and SMS."
+        },
+        {
+          "id": "gensys-13",
+          "q": "Design a news feed or activity timeline."
+        },
+        {
+          "id": "gensys-14",
+          "q": "Design image and video upload, storage, and delivery."
+        },
+        {
+          "id": "gensys-15",
+          "q": "Design search with autocomplete over a large catalogue."
+        },
+        {
+          "id": "gensys-16",
+          "q": "Design the checkout flow for an e-commerce site."
+        },
+        {
+          "id": "gensys-17",
+          "q": "Design an inventory system that never oversells during a flash sale."
+        },
+        {
+          "id": "gensys-18",
+          "q": "Design a shopping cart that survives across devices and sessions."
+        },
+        {
+          "id": "gensys-19",
+          "q": "Design a pipeline that ingests analytics events and makes them queryable."
+        },
+        {
+          "id": "gensys-20",
+          "q": "Design a job scheduler that runs recurring tasks reliably at scale."
+        },
+        {
+          "id": "gensys-21",
+          "q": "Design a leaderboard that ranks millions of users in near real time."
+        },
+        {
+          "id": "gensys-22",
+          "q": "Design the data model for a multi-tenant software product."
+        },
+        {
+          "id": "gensys-23",
+          "q": "Design a content site that stays fast worldwide."
+        },
+        {
+          "id": "gensys-24",
+          "q": "Design an audit log that records every change and can be queried later."
+        }
+      ]
     }
   ]
 }
