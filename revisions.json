@@ -611,6 +611,134 @@
           "q": "How do you decide what to cache, and how do you invalidate it correctly?"
         }
       ]
+    },
+    {
+      "id": "frontendfund",
+      "name": "Frontend & browser fundamentals",
+      "domain": "frontend",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "frontendfund-1",
+          "q": "Walk me through what a browser does between receiving HTML and painting the first pixels."
+        },
+        {
+          "id": "frontendfund-2",
+          "q": "What is the difference between server-side rendering, client-side rendering, static generation, and incremental regeneration — and how do you choose?"
+        },
+        {
+          "id": "frontendfund-3",
+          "q": "What is hydration, and what problems does it cause?"
+        },
+        {
+          "id": "frontendfund-4",
+          "q": "What are Core Web Vitals, and what does each one actually measure?"
+        },
+        {
+          "id": "frontendfund-5",
+          "q": "A page feels slow. How do you find out why, and what do you measure?"
+        },
+        {
+          "id": "frontendfund-6",
+          "q": "How would you know whether a performance optimization helped real users rather than your laptop?"
+        },
+        {
+          "id": "frontendfund-7",
+          "q": "What causes layout shift, and how do you prevent it?"
+        },
+        {
+          "id": "frontendfund-8",
+          "q": "How do you decide what loads eagerly, what loads lazily, and what gets split out of the main bundle?"
+        },
+        {
+          "id": "frontendfund-9",
+          "q": "How do you reduce JavaScript bundle size, and how do you find what is making it large?"
+        },
+        {
+          "id": "frontendfund-10",
+          "q": "How do you serve images efficiently — format, sizing, and loading?"
+        },
+        {
+          "id": "frontendfund-11",
+          "q": "How do third-party scripts affect performance and reliability, and how do you contain them?"
+        },
+        {
+          "id": "frontendfund-12",
+          "q": "How do browser caching and HTTP caching work together on the frontend?"
+        },
+        {
+          "id": "frontendfund-13",
+          "q": "How do you make a complex interface accessible?"
+        },
+        {
+          "id": "frontendfund-14",
+          "q": "When do you reach for ARIA, and when is semantic HTML enough?"
+        },
+        {
+          "id": "frontendfund-15",
+          "q": "How do you handle keyboard navigation and focus management in a modal or menu?"
+        },
+        {
+          "id": "frontendfund-16",
+          "q": "How do you test accessibility, and what can automated tools not catch?"
+        },
+        {
+          "id": "frontendfund-17",
+          "q": "How does the browser event model work — bubbling, capturing, and delegation?"
+        },
+        {
+          "id": "frontendfund-18",
+          "q": "How do you organise CSS at scale, and how do you keep specificity from becoming a problem?"
+        },
+        {
+          "id": "frontendfund-19",
+          "q": "Flexbox or grid — how do you decide, and how do you build a responsive layout?"
+        },
+        {
+          "id": "frontendfund-20",
+          "q": "How do you distinguish server state from client state, and where should each live?"
+        },
+        {
+          "id": "frontendfund-21",
+          "q": "A user types quickly and each keystroke fires a request. How do you handle the race between responses?"
+        },
+        {
+          "id": "frontendfund-22",
+          "q": "localStorage, sessionStorage, cookies, IndexedDB — when would you use each?"
+        },
+        {
+          "id": "frontendfund-23",
+          "q": "How do you handle forms, validation, and error states well?"
+        },
+        {
+          "id": "frontendfund-24",
+          "q": "How do you build reusable components that stay consistent with a design system?"
+        },
+        {
+          "id": "frontendfund-25",
+          "q": "How do you evaluate whether to add a new frontend dependency?"
+        },
+        {
+          "id": "frontendfund-26",
+          "q": "What causes memory or performance problems in a long-running browser session?"
+        },
+        {
+          "id": "frontendfund-27",
+          "q": "How do you find out that a frontend error happened to a real user, and how do you debug it?"
+        },
+        {
+          "id": "frontendfund-28",
+          "q": "How do you debug an issue that only appears in one browser or on one device?"
+        },
+        {
+          "id": "frontendfund-29",
+          "q": "How would you build an interface for multiple languages and locales?"
+        },
+        {
+          "id": "frontendfund-30",
+          "q": "What does progressive enhancement mean in practice, and does it still matter?"
+        }
+      ]
     }
   ]
 }
