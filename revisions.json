@@ -113,6 +113,14 @@
         {
           "id": "apidesign-27",
           "q": "How do you document an API and keep the documentation honest?"
+        },
+        {
+          "id": "apidesign-28",
+          "q": "Step by step, what happens when a request reaches an Application Programming Interface (API)?"
+        },
+        {
+          "id": "apidesign-29",
+          "q": "When would you choose Representational State Transfer (REST) versus GraphQL?"
         }
       ]
     },
@@ -301,6 +309,10 @@
         {
           "id": "db-26",
           "q": "What is your backup and recovery strategy, and how do you know a restore actually works?"
+        },
+        {
+          "id": "db-27",
+          "q": "How do you choose between a relational database and a NoSQL database?"
         }
       ]
     },
@@ -401,6 +413,10 @@
         {
           "id": "bearch-23",
           "q": "When does an API gateway help, and what does it risk becoming?"
+        },
+        {
+          "id": "bearch-24",
+          "q": "How do you structure a backend service so it stays maintainable?"
         }
       ]
     },
@@ -517,6 +533,82 @@
         {
           "id": "cloud-27",
           "q": "What actually drives cloud cost, and how would you find and cut waste?"
+        }
+      ]
+    },
+    {
+      "id": "core-backend",
+      "name": "Core Track — Backend, Node.js & API design",
+      "domain": "backend",
+      "slope": "climb",
+      "subsetOf": [
+        "apidesign",
+        "nodejs",
+        "bearch"
+      ],
+      "cards": [
+        {
+          "id": "apidesign-28",
+          "q": "Step by step, what happens when a request reaches an Application Programming Interface (API)?"
+        },
+        {
+          "id": "apidesign-29",
+          "q": "When would you choose Representational State Transfer (REST) versus GraphQL?"
+        },
+        {
+          "id": "apidesign-10",
+          "q": "How do you implement authentication securely?"
+        },
+        {
+          "id": "apidesign-12",
+          "q": "How do you make an operation safe to retry?"
+        },
+        {
+          "id": "apidesign-13",
+          "q": "A dependency your endpoint relies on is slow or down. How should the endpoint behave?"
+        },
+        {
+          "id": "nodejs-9",
+          "q": "When would you use worker threads or separate processes?"
+        },
+        {
+          "id": "bearch-4",
+          "q": "How do you decide between a synchronous service call and an asynchronous event?"
+        },
+        {
+          "id": "bearch-24",
+          "q": "How do you structure a backend service so it stays maintainable?"
+        }
+      ]
+    },
+    {
+      "id": "core-databases",
+      "name": "Core Track — Databases & caching",
+      "domain": "backend",
+      "slope": "climb",
+      "subsetOf": [
+        "db"
+      ],
+      "cards": [
+        {
+          "id": "db-27",
+          "q": "How do you choose between a relational database and a NoSQL database?"
+        },
+        {
+          "id": "db-3",
+          "q": "What does an index cost, and when does the planner ignore one you expected it to use?"
+        },
+        {
+          "id": "db-6",
+          "q": "How do transactions protect data integrity?"
+        },
+        {
+          "id": "db-8",
+          "q": "Two requests read the same row and both write. How do you stop one update from being lost?"
+        },
+        {
+          "id": "db-22",
+          "q": "How do you decide what to cache, and how do you invalidate it correctly?"
         }
       ]
     }
