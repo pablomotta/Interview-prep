@@ -2163,6 +2163,10 @@
           "q": "What does referential identity have to do with re-renders, and when do useMemo and useCallback actually help?"
         },
         {
+          "id": "react-5",
+          "q": "How does reconciliation work, and what problem do keys solve in a list?"
+        },
+        {
           "id": "react-7",
           "q": "useEffect is frequently overused. When is it the wrong tool, and what should you use instead?"
         },
@@ -2171,12 +2175,24 @@
           "q": "When should state be lifted, colocated, or derived rather than stored?"
         },
         {
+          "id": "react-13",
+          "q": "When is Context the right tool, and what does it cost in re-renders?"
+        },
+        {
+          "id": "react-14",
+          "q": "How do you extract logic into a custom hook, and what makes a good one?"
+        },
+        {
           "id": "react-15",
           "q": "What is the difference between controlled and uncontrolled components, and why does it matter at scale?"
         },
         {
           "id": "react-17",
           "q": "How do you handle data fetching alongside loading, empty, and error states?"
+        },
+        {
+          "id": "react-18",
+          "q": "How do error boundaries work, and what do they not catch?"
         },
         {
           "id": "react-19",
@@ -2209,6 +2225,22 @@
         {
           "id": "frontendfund-20",
           "q": "How do you distinguish server state from client state, and where should each live?"
+        },
+        {
+          "id": "frontendfund-17",
+          "q": "How does the browser event model work — bubbling, capturing, and delegation?"
+        },
+        {
+          "id": "frontendfund-19",
+          "q": "Flexbox or grid — how do you decide, and how do you build a responsive layout?"
+        },
+        {
+          "id": "frontendfund-21",
+          "q": "A user types quickly and each keystroke fires a request. How do you handle the race between responses?"
+        },
+        {
+          "id": "react-26",
+          "q": "How do you test React components, and what should you be asserting?"
         },
         {
           "id": "js-1",
