@@ -115,6 +115,82 @@
           "q": "How do you document an API and keep the documentation honest?"
         }
       ]
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "domain": "backend",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "nodejs-1",
+          "q": "What is the event loop, in your own words?"
+        },
+        {
+          "id": "nodejs-2",
+          "q": "What is the difference between the microtask and macrotask queues?"
+        },
+        {
+          "id": "nodejs-3",
+          "q": "What are streams, and when do they help?"
+        },
+        {
+          "id": "nodejs-4",
+          "q": "What is backpressure, and how do Node.js streams handle it?"
+        },
+        {
+          "id": "nodejs-5",
+          "q": "Where do errors get silently swallowed in asynchronous Node.js code, and how do you prevent it?"
+        },
+        {
+          "id": "nodejs-6",
+          "q": "What is the risk of an uncaught exception or unhandled promise rejection?"
+        },
+        {
+          "id": "nodejs-7",
+          "q": "What are the common mistakes with async/await, and how do you run work concurrently instead of sequentially?"
+        },
+        {
+          "id": "nodejs-8",
+          "q": "CommonJS versus ES modules — what is the difference, and where does the interop bite?"
+        },
+        {
+          "id": "nodejs-9",
+          "q": "When would you use worker threads or separate processes?"
+        },
+        {
+          "id": "nodejs-10",
+          "q": "Would you scale with the cluster module or by running multiple containers, and why?"
+        },
+        {
+          "id": "nodejs-11",
+          "q": "How do you propagate request context, such as a correlation identifier, through async calls without threading it as an argument?"
+        },
+        {
+          "id": "nodejs-12",
+          "q": "How do you perform a graceful shutdown?"
+        },
+        {
+          "id": "nodejs-13",
+          "q": "How do you prevent a Node.js service from exhausting database connections?"
+        },
+        {
+          "id": "nodejs-14",
+          "q": "How would you diagnose a memory leak in Node.js?"
+        },
+        {
+          "id": "nodejs-15",
+          "q": "How do you profile CPU usage, and why is event-loop lag worth monitoring?"
+        },
+        {
+          "id": "nodejs-16",
+          "q": "How do you manage the Node.js runtime version and dependencies across environments?"
+        },
+        {
+          "id": "nodejs-17",
+          "q": "When is Node.js a poor technology choice?"
+        }
+      ]
     }
   ]
 }
