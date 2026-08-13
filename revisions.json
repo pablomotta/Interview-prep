@@ -1359,6 +1359,102 @@
           "q": "How would you monitor connection health and delivery latency?"
         }
       ]
+    },
+    {
+      "id": "payments",
+      "name": "Payments systems",
+      "domain": "sysdesign",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "payments-1",
+          "q": "Design a payment-processing engine that communicates with an external processor."
+        },
+        {
+          "id": "payments-2",
+          "q": "How do you guarantee a customer is never charged twice, even when the processor times out and you don't know whether the charge went through?"
+        },
+        {
+          "id": "payments-3",
+          "q": "How do you model payment states and the transitions between them?"
+        },
+        {
+          "id": "payments-4",
+          "q": "How do you distinguish authorization, capture, settlement, refund, and reversal?"
+        },
+        {
+          "id": "payments-5",
+          "q": "A payment webhook can arrive twice, out of order, or never. How do you design for that?"
+        },
+        {
+          "id": "payments-6",
+          "q": "What is reconciliation, how do you run it, and what do you do when it finds a discrepancy?"
+        },
+        {
+          "id": "payments-7",
+          "q": "How would you audit every financial state change?"
+        },
+        {
+          "id": "payments-8",
+          "q": "How do you store monetary amounts, and what breaks when you get rounding wrong?"
+        },
+        {
+          "id": "payments-9",
+          "q": "How would you support multiple currencies, and where does the exchange rate get fixed?"
+        },
+        {
+          "id": "payments-10",
+          "q": "How would you handle refunds — full, partial, and after settlement?"
+        },
+        {
+          "id": "payments-11",
+          "q": "How would you design recurring billing for subscriptions?"
+        },
+        {
+          "id": "payments-12",
+          "q": "A subscription payment fails. How do you recover the revenue without losing the customer?"
+        },
+        {
+          "id": "payments-13",
+          "q": "How would you handle plan changes mid-cycle — upgrades, downgrades, and proration?"
+        },
+        {
+          "id": "payments-14",
+          "q": "How would you minimise PCI scope when accepting card details?"
+        },
+        {
+          "id": "payments-15",
+          "q": "What is 3D Secure or strong customer authentication, and how does it change the payment flow?"
+        },
+        {
+          "id": "payments-16",
+          "q": "How would you detect and respond to fraudulent transactions?"
+        },
+        {
+          "id": "payments-17",
+          "q": "How would you design chargeback and dispute handling?"
+        },
+        {
+          "id": "payments-18",
+          "q": "How would you support payment methods beyond cards — wallets, bank debits, and buy-now-pay-later?"
+        },
+        {
+          "id": "payments-19",
+          "q": "What would it take to add a second payment processor, and when would you route between them?"
+        },
+        {
+          "id": "payments-20",
+          "q": "Would you ever accept eventual consistency in a payments system, and where?"
+        },
+        {
+          "id": "payments-21",
+          "q": "How would you test payment flows safely, including the cases a sandbox cannot reproduce?"
+        },
+        {
+          "id": "payments-22",
+          "q": "What would you monitor and alert on in a payments system?"
+        }
+      ]
     }
   ]
 }
