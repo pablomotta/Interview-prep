@@ -947,6 +947,110 @@
           "q": "When is a regular expression the right tool, and when does it become a liability?"
         }
       ]
+    },
+    {
+      "id": "ts",
+      "name": "TypeScript",
+      "domain": "frontend",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "ts-1",
+          "q": "What does TypeScript actually guarantee, and what does it not protect you from?"
+        },
+        {
+          "id": "ts-2",
+          "q": "What is the difference between `unknown`, `any`, and `never`?"
+        },
+        {
+          "id": "ts-3",
+          "q": "What is structural typing, and how does it differ from nominal typing?"
+        },
+        {
+          "id": "ts-4",
+          "q": "When are branded or opaque types worth the trouble?"
+        },
+        {
+          "id": "ts-5",
+          "q": "What is type inference, and when should you add an explicit annotation instead?"
+        },
+        {
+          "id": "ts-6",
+          "q": "How do generics and generic constraints let you write a type-safe, reusable API?"
+        },
+        {
+          "id": "ts-7",
+          "q": "Explain `keyof` and indexed-access types, and type a function that gets a property by name."
+        },
+        {
+          "id": "ts-8",
+          "q": "What are mapped types, and how are utility types like Partial, Pick, and Record built from them?"
+        },
+        {
+          "id": "ts-9",
+          "q": "What are conditional types, and how would you type a function whose return type depends on its input?"
+        },
+        {
+          "id": "ts-10",
+          "q": "What are template literal types useful for?"
+        },
+        {
+          "id": "ts-11",
+          "q": "What is a discriminated union, and why is it better than one type with many optional fields?"
+        },
+        {
+          "id": "ts-12",
+          "q": "How does TypeScript narrow types, and when do you need a user-defined type predicate?"
+        },
+        {
+          "id": "ts-13",
+          "q": "How do you make the compiler fail when a new case is added to a union?"
+        },
+        {
+          "id": "ts-14",
+          "q": "What does `strictNullChecks` change, and which other strictness flags are worth turning on?"
+        },
+        {
+          "id": "ts-15",
+          "q": "A catch block types the error as `unknown`. How should it be handled?"
+        },
+        {
+          "id": "ts-16",
+          "q": "How do you validate data at the boundary so the types you declare are actually true at runtime?"
+        },
+        {
+          "id": "ts-17",
+          "q": "How do you keep frontend and backend types from drifting apart?"
+        },
+        {
+          "id": "ts-18",
+          "q": "`interface` versus `type`: when does the choice actually matter?"
+        },
+        {
+          "id": "ts-19",
+          "q": "Enum or a union of string literals — which do you reach for, and why?"
+        },
+        {
+          "id": "ts-20",
+          "q": "What does the `satisfies` operator solve that an annotation or an assertion does not?"
+        },
+        {
+          "id": "ts-21",
+          "q": "What are the risks of type assertions, and when is one justified?"
+        },
+        {
+          "id": "ts-22",
+          "q": "How do you express immutability in the type system, and what are its limits?"
+        },
+        {
+          "id": "ts-23",
+          "q": "How do you work with a third-party package that has no types?"
+        },
+        {
+          "id": "ts-24",
+          "q": "How would you introduce TypeScript into an existing JavaScript codebase?"
+        }
+      ]
     }
   ]
 }
