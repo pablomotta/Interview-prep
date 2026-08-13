@@ -1543,6 +1543,134 @@
           "q": "How would you measure whether AI tools are actually improving engineering output?"
         }
       ]
+    },
+    {
+      "id": "rag",
+      "name": "LLM application engineering & RAG",
+      "domain": "ai",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "rag-1",
+          "q": "What is Retrieval-Augmented Generation, and what problem does it solve?"
+        },
+        {
+          "id": "rag-2",
+          "q": "What is an embedding, in plain language?"
+        },
+        {
+          "id": "rag-3",
+          "q": "When does a vector database earn its place, and when is it unnecessary?"
+        },
+        {
+          "id": "rag-4",
+          "q": "How does a vector index actually find nearest neighbours, and what do you trade for speed?"
+        },
+        {
+          "id": "rag-5",
+          "q": "How do you choose an embedding model, and what happens when you need to change it later?"
+        },
+        {
+          "id": "rag-6",
+          "q": "How do you decide how to chunk documents, and what breaks at each extreme?"
+        },
+        {
+          "id": "rag-7",
+          "q": "What is the difference between semantic and keyword search, and when is hybrid search worth it?"
+        },
+        {
+          "id": "rag-8",
+          "q": "How do metadata filters improve retrieval?"
+        },
+        {
+          "id": "rag-9",
+          "q": "What is reranking, and when is it worth the extra step?"
+        },
+        {
+          "id": "rag-10",
+          "q": "The user's question is phrased badly for retrieval. What can you do before you search?"
+        },
+        {
+          "id": "rag-11",
+          "q": "How much retrieved context should you actually put in the prompt, and does position matter?"
+        },
+        {
+          "id": "rag-12",
+          "q": "What happens to your index when the source documents change?"
+        },
+        {
+          "id": "rag-13",
+          "q": "How do you enforce permissions so a user never retrieves a document they cannot see?"
+        },
+        {
+          "id": "rag-14",
+          "q": "How do you cite or trace an answer back to its sources?"
+        },
+        {
+          "id": "rag-15",
+          "q": "How does RAG reduce hallucination, and why does it not eliminate it?"
+        },
+        {
+          "id": "rag-16",
+          "q": "How do you choose between RAG, fine-tuning, and just a better prompt?"
+        },
+        {
+          "id": "rag-17",
+          "q": "What is prompt injection, and how do you defend an application against it?"
+        },
+        {
+          "id": "rag-18",
+          "q": "What is indirect prompt injection, and why does retrieved content make it dangerous?"
+        },
+        {
+          "id": "rag-19",
+          "q": "How do you get reliable structured output from a model?"
+        },
+        {
+          "id": "rag-20",
+          "q": "How does tool use or function calling work, and what can go wrong with it?"
+        },
+        {
+          "id": "rag-21",
+          "q": "How do you validate a model's output before acting on it or showing it to a user?"
+        },
+        {
+          "id": "rag-22",
+          "q": "How do you stream a response to the UI, and what does that change about error handling?"
+        },
+        {
+          "id": "rag-23",
+          "q": "What drives cost and latency in an LLM feature, and how do you control both?"
+        },
+        {
+          "id": "rag-24",
+          "q": "When can you cache around a model, and when is caching unsafe?"
+        },
+        {
+          "id": "rag-25",
+          "q": "What do you do when the model is slow, rate limited, or unavailable?"
+        },
+        {
+          "id": "rag-26",
+          "q": "How do you keep personal or confidential data out of what you send to a model?"
+        },
+        {
+          "id": "rag-27",
+          "q": "How do you evaluate retrieval quality separately from answer quality?"
+        },
+        {
+          "id": "rag-28",
+          "q": "How do you build an evaluation set and know a prompt change was an improvement?"
+        },
+        {
+          "id": "rag-29",
+          "q": "How do you test a system whose output is non-deterministic?"
+        },
+        {
+          "id": "rag-30",
+          "q": "What would you log and monitor for an LLM feature in production?"
+        }
+      ]
     }
   ]
 }
