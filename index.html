@@ -339,8 +339,8 @@ function homeHTML(){
   ${scoreCardHTML(o)}
   <div style="margin-top:26px" id="resetWrap"><button class="ghost" id="resetBtn">Reset progress</button></div>
   ${memoryOnly
-    ? `<div class="note">This copy is running somewhere that blocks local storage — likely inside Claude — so ratings last only for this session. Save the file and open it in your own browser to keep your progress across sessions.</div>`
-    : `<div class="note">Your progress is saved in this browser on this device. Close it and open the file again and it remembers your ratings.</div>`}
+    ? `<div class="note">This browser is blocking local storage — private browsing or a strict privacy setting will do that — so ratings last only for this session. Open the site in a normal browser window to keep your progress across sessions.</div>`
+    : `<div class="note">Your progress is saved in this browser on this device. Close the tab and come back later and it remembers your ratings.</div>`}
   `;
 }
 
