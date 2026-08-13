@@ -191,6 +191,118 @@
           "q": "When is Node.js a poor technology choice?"
         }
       ]
+    },
+    {
+      "id": "db",
+      "name": "Databases & data modeling",
+      "domain": "backend",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "db-1",
+          "q": "A Structured Query Language (SQL) query is slow in production. How do you diagnose it, and what does the execution plan tell you?"
+        },
+        {
+          "id": "db-2",
+          "q": "What is the N+1 query problem, how does it arise with an ORM, and how do you fix it?"
+        },
+        {
+          "id": "db-3",
+          "q": "What does an index cost, and when does the planner ignore one you expected it to use?"
+        },
+        {
+          "id": "db-4",
+          "q": "What is a composite index, and why does column order matter?"
+        },
+        {
+          "id": "db-5",
+          "q": "Beyond a plain B-tree, when would you reach for a partial, covering, or unique index?"
+        },
+        {
+          "id": "db-6",
+          "q": "How do transactions protect data integrity?"
+        },
+        {
+          "id": "db-7",
+          "q": "What are database isolation levels, and which would you choose for a financial write?"
+        },
+        {
+          "id": "db-8",
+          "q": "Two requests read the same row and both write. How do you stop one update from being lost?"
+        },
+        {
+          "id": "db-9",
+          "q": "What causes a database deadlock, and how do you avoid and recover from one?"
+        },
+        {
+          "id": "db-10",
+          "q": "How do you size and manage a connection pool, and what happens when it is exhausted?"
+        },
+        {
+          "id": "db-11",
+          "q": "How do foreign keys help, and what trade-offs do they introduce?"
+        },
+        {
+          "id": "db-12",
+          "q": "How do you model one-to-many and many-to-many relationships?"
+        },
+        {
+          "id": "db-13",
+          "q": "What is database normalization, and when might you denormalize?"
+        },
+        {
+          "id": "db-14",
+          "q": "When is a JSON column the right call in a relational database, and when is it a mistake?"
+        },
+        {
+          "id": "db-15",
+          "q": "How do you store timestamps and handle time zones correctly?"
+        },
+        {
+          "id": "db-16",
+          "q": "Soft deletes versus hard deletes — how do you decide, and what does each cost you later?"
+        },
+        {
+          "id": "db-17",
+          "q": "How do you model data that changes over time when you need the historical value, not just the current one?"
+        },
+        {
+          "id": "db-18",
+          "q": "Design the core of a financial ledger, and explain why it is append-only."
+        },
+        {
+          "id": "db-19",
+          "q": "A table is taking more writes than it can keep up with. What are your options?"
+        },
+        {
+          "id": "db-20",
+          "q": "How do read replicas help a bottlenecked database, and what breaks when you read from them?"
+        },
+        {
+          "id": "db-21",
+          "q": "When would you shard a database, and what makes a good sharding key?"
+        },
+        {
+          "id": "db-22",
+          "q": "How do you decide what to cache, and how do you invalidate it correctly?"
+        },
+        {
+          "id": "db-23",
+          "q": "How do you perform a zero-downtime schema migration?"
+        },
+        {
+          "id": "db-24",
+          "q": "How do you backfill a new column across a large table without overwhelming production?"
+        },
+        {
+          "id": "db-25",
+          "q": "How would you offer full-text search — in the database, or with a dedicated search engine?"
+        },
+        {
+          "id": "db-26",
+          "q": "What is your backup and recovery strategy, and how do you know a restore actually works?"
+        }
+      ]
     }
   ]
 }
