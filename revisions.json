@@ -2267,6 +2267,164 @@
           "q": "What is a discriminated union, and why is it better than one type with many optional fields?"
         }
       ]
+    },
+    {
+      "id": "prep-fullstack",
+      "name": "Full-stack interview — quick prep",
+      "domain": "backend",
+      "slope": "climb",
+      "track": "job-prep",
+      "subsetOf": [
+        "react",
+        "frontendfund",
+        "js",
+        "ts",
+        "apidesign",
+        "nodejs",
+        "db",
+        "bearch",
+        "gensys",
+        "testing",
+        "cloud"
+      ],
+      "cards": [
+        {
+          "id": "react-1",
+          "q": "Why does a React component re-render, and what actually triggers it?"
+        },
+        {
+          "id": "react-7",
+          "q": "useEffect is frequently overused. When is it the wrong tool, and what should you use instead?"
+        },
+        {
+          "id": "react-10",
+          "q": "When should state be lifted, colocated, or derived rather than stored?"
+        },
+        {
+          "id": "react-17",
+          "q": "How do you handle data fetching alongside loading, empty, and error states?"
+        },
+        {
+          "id": "react-19",
+          "q": "When would you use a Server Component versus a Client Component?"
+        },
+        {
+          "id": "frontendfund-2",
+          "q": "What is the difference between server-side rendering, client-side rendering, static generation, and incremental regeneration — and how do you choose?"
+        },
+        {
+          "id": "frontendfund-5",
+          "q": "A page feels slow. How do you find out why, and what do you measure?"
+        },
+        {
+          "id": "frontendfund-13",
+          "q": "How do you make a complex interface accessible?"
+        },
+        {
+          "id": "js-1",
+          "q": "What is a closure, and why does it matter?"
+        },
+        {
+          "id": "js-6",
+          "q": "What is a promise, what states does it have, and how do errors propagate through a chain?"
+        },
+        {
+          "id": "ts-2",
+          "q": "What is the difference between `unknown`, `any`, and `never`?"
+        },
+        {
+          "id": "ts-11",
+          "q": "What is a discriminated union, and why is it better than one type with many optional fields?"
+        },
+        {
+          "id": "apidesign-28",
+          "q": "Step by step, what happens when a request reaches an Application Programming Interface (API)?"
+        },
+        {
+          "id": "apidesign-29",
+          "q": "When would you choose Representational State Transfer (REST) versus GraphQL?"
+        },
+        {
+          "id": "apidesign-6",
+          "q": "How do you evolve an API without breaking existing clients?"
+        },
+        {
+          "id": "apidesign-10",
+          "q": "How do you implement authentication securely?"
+        },
+        {
+          "id": "apidesign-11",
+          "q": "How do you implement authorization for roles, resources, and ownership?"
+        },
+        {
+          "id": "apidesign-12",
+          "q": "How do you make an operation safe to retry?"
+        },
+        {
+          "id": "apidesign-13",
+          "q": "A dependency your endpoint relies on is slow or down. How should the endpoint behave?"
+        },
+        {
+          "id": "nodejs-1",
+          "q": "What is the event loop, in your own words?"
+        },
+        {
+          "id": "nodejs-9",
+          "q": "When would you use worker threads or separate processes?"
+        },
+        {
+          "id": "db-1",
+          "q": "A Structured Query Language (SQL) query is slow in production. How do you diagnose it, and what does the execution plan tell you?"
+        },
+        {
+          "id": "db-2",
+          "q": "What is the N+1 query problem, how does it arise with an ORM, and how do you fix it?"
+        },
+        {
+          "id": "db-3",
+          "q": "What does an index cost, and when does the planner ignore one you expected it to use?"
+        },
+        {
+          "id": "db-6",
+          "q": "How do transactions protect data integrity?"
+        },
+        {
+          "id": "db-8",
+          "q": "Two requests read the same row and both write. How do you stop one update from being lost?"
+        },
+        {
+          "id": "db-22",
+          "q": "How do you decide what to cache, and how do you invalidate it correctly?"
+        },
+        {
+          "id": "bearch-1",
+          "q": "Monolith versus microservices: how do you choose, and where do you draw service boundaries?"
+        },
+        {
+          "id": "bearch-4",
+          "q": "How do you decide between a synchronous service call and an asynchronous event?"
+        },
+        {
+          "id": "gensys-1",
+          "q": "How do you approach an open-ended system-design question?"
+        },
+        {
+          "id": "gensys-16",
+          "q": "Design the checkout flow for an e-commerce site."
+        },
+        {
+          "id": "testing-1",
+          "q": "How do you think about the testing pyramid, and how do you decide what belongs at each level?"
+        },
+        {
+          "id": "testing-5",
+          "q": "What are mocks, stubs, and fakes, and what goes wrong when you over-mock?"
+        },
+        {
+          "id": "cloud-13",
+          "q": "How do you deploy a change safely and roll it back when it goes wrong?"
+        }
+      ]
     }
   ]
 }
