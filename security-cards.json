@@ -1,20 +1,4 @@
 {
-  "_meta": {
-    "title": "Security — proposed category",
-    "status": "proposed, not yet merged into index.html",
-    "rationale": "Coverage analysis of the 124 backend questions found only 3 security questions (core-backend-3, apidesign-10, apidesign-11). SQL injection, password storage, CORS, CSRF, XSS, token strategy, and secure file uploads were absent as questions entirely. These 15 cards close that gap.",
-    "totalQuestions": 15,
-    "domain": "backend",
-    "domainNote": "Filed under the existing 'backend' domain so it renders in the Backend section with no app changes. Could become its own 'security' domain later, which would need a new chip and section in homeHTML.",
-    "avoidsDuplicating": [
-      "cloud-7 — manage secrets and environment variables",
-      "apidesign-5 — rate limiting (security-14 narrows to auth-endpoint brute force)",
-      "apidesign-7 — API input validation",
-      "apidesign-10 / apidesign-11 — authentication and authorization basics",
-      "frontendfund-17 — frontend security risks (security-5/6/7/13 go deeper per-topic)"
-    ],
-    "schemaNote": "Matches the BANK format in index.html. Paragraphs in 'a' are separated by '||'. 'note' renders after grading, never before reveal."
-  },
   "categories": [
     {
       "id": "security",
@@ -24,123 +8,63 @@
       "cards": [
         {
           "id": "security-1",
-          "level": 1,
-          "q": "How do you prevent SQL injection?",
-          "a": "SQL injection happens when user input gets concatenated into a query string, so the input can change the structure of the query instead of just supplying a value. The classic case is a login form where someone types a quote and an OR clause and turns the WHERE into something that always matches.||The fix is parameterized queries, also called prepared statements. You send the SQL and the values separately, so the database treats the value strictly as data and never parses it as SQL. Every mainstream driver and ORM supports this and most do it by default, so my practical rule is that a query is never built by string concatenation with user input.||Where people still get caught is the part an ORM can't parameterize, like a dynamic column name in an ORDER BY or a table name, because those aren't values. There I validate against an allowlist of known-good names rather than passing input through. Raw-query escape hatches are the other risk, so those get extra scrutiny in review.||I'd add defense in depth on top: the application's database user should hold only the privileges it actually needs, so even a successful injection has a limited blast radius.",
-          "tag": "Teachable",
-          "note": "Say 'parameterized queries' explicitly — it's the phrase the interviewer is listening for. Mentioning the ORDER BY allowlist edge case is what separates a senior answer from a junior one."
+          "q": "How do you prevent SQL injection?"
         },
         {
           "id": "security-2",
-          "level": 2,
-          "q": "How should user passwords be stored?",
-          "a": "Passwords should never be stored in a recoverable form, so no plaintext and no reversible encryption. They get hashed with a deliberately slow algorithm designed for passwords: bcrypt, scrypt, or Argon2, with Argon2id being the current preference.||The reason it has to be slow is that fast general-purpose hashes like SHA-256 are the wrong tool here. An attacker with a stolen database can try billions of SHA-256 guesses per second on commodity hardware, so speed is the enemy. A password hash has a tunable work factor, and you set it so a single verification takes a meaningful fraction of a second, which makes large-scale guessing impractical.||Every password gets a unique random salt. The algorithms above generate and embed it in the hash string for you. The salt means two users with the same password produce different hashes, so an attacker can't use a precomputed rainbow table or spot shared passwords across accounts.||Operationally I'd also screen new passwords against a list of known breached passwords, revisit the work factor as hardware gets faster, and transparently rehash on successful login when a stored hash is below current policy. And I'd reach for a well-tested library or a managed identity provider rather than hand-rolling any of it.",
-          "tag": "Teachable",
-          "note": "The 'why slow' explanation is the real answer. If you only say 'hash it with bcrypt' you've stated the what, not the reasoning."
+          "q": "How should user passwords be stored?"
         },
         {
           "id": "security-3",
-          "level": 3,
-          "q": "Session cookies versus JSON Web Tokens — how do you choose?",
-          "a": "A session cookie is a reference: the server holds the session state and the cookie carries an opaque identifier, so the server looks it up on each request. A JWT is self-contained: the claims live inside the token and a signature proves it wasn't tampered with, so the server can validate it without a lookup.||The core trade-off is revocation versus statelessness. Sessions are trivially revocable, because you delete the record and the next request fails, which is what you want for logout, a password change, or a compromised account. A JWT is valid until it expires, by design, so early revocation means reintroducing the very state you were trying to avoid, usually a denylist or a very short expiry paired with refresh tokens.||My default for a browser-facing app is a server session in an httpOnly, Secure, SameSite cookie. Keeping the token unreachable from JavaScript removes an entire class of token theft, and revocation just works. I reach for JWTs where statelessness genuinely earns its keep: service-to-service calls, or an API where a gateway needs to validate a token without calling an auth service on every request.||The pattern I'd push back on is storing a JWT in localStorage for a normal web app. It's readable by any script on the page, so one XSS becomes full account takeover, and it usually buys statelessness the application never needed.",
-          "tag": "Teachable",
-          "note": "Interviewers often expect 'JWT = modern, sessions = old.' Having a reasoned default that favors sessions for browser apps reads as senior, as long as you name the cases where JWTs win."
+          "q": "Session cookies versus JSON Web Tokens — how do you choose?"
         },
         {
           "id": "security-4",
-          "level": 3,
-          "q": "How do you handle token expiry, refresh, and revocation?",
-          "a": "The goal is to keep the window of usefulness for a stolen token small while not forcing the user to log in constantly. The standard shape is a short-lived access token, minutes rather than hours, paired with a longer-lived refresh token that can mint new access tokens.||The refresh token is the sensitive one, because it represents ongoing access, so it gets stored more carefully than the access token and is scoped to only work against the token endpoint. I'd use refresh token rotation, where each refresh issues a new token and invalidates the old one. That gives you theft detection almost for free: if an already-used refresh token is presented again, that means two parties hold it, so I revoke the whole family and force reauthentication.||Revocation is where the design work actually is. Access tokens are usually left to expire on their own because they're short-lived, while refresh tokens are tracked server-side so they can be killed immediately. Events that should revoke everything are logout, password change, permission changes, and any suspicion of compromise.||I'd also make sure the client handles expiry gracefully, refreshing ahead of time or retrying once on a 401, so a token rotation doesn't surface to the user as a random failure mid-action.",
-          "tag": "Teachable",
-          "note": "Refresh token rotation with reuse detection is the detail that shows you've actually implemented this rather than read about it."
+          "q": "How do you handle token expiry, refresh, and revocation?"
         },
         {
           "id": "security-5",
-          "level": 2,
-          "q": "What is cross-site scripting, and how do you prevent it?",
-          "a": "Cross-site scripting is when attacker-controlled input ends up executing as script in another user's browser, inside your origin. Because it runs as your page, it can read the DOM, call your API with the user's credentials, and exfiltrate anything the page can reach.||It comes in a few shapes. Stored XSS is when the payload is persisted, say in a comment, and served to everyone who views it. Reflected XSS bounces the payload back from a URL or form. DOM-based XSS never touches the server at all, and happens when client code takes something like a URL fragment and writes it into the page unsafely.||The main defense is context-aware output encoding: escape data for the context it lands in, because HTML, attributes, URLs, and JavaScript all have different rules. Modern frameworks like React escape by default, which handles most of it, so the real risk concentrates in the explicit escape hatches, things like dangerouslySetInnerHTML or direct innerHTML assignment. Any of those with user-controlled data gets scrutiny, and if I genuinely need to render user HTML I sanitize with a vetted library rather than a regex.||On top of that I'd run a Content Security Policy as a second layer, so even a payload that gets through has trouble executing, and keep session tokens in httpOnly cookies so XSS can't simply read them.",
-          "tag": "Teachable",
-          "note": "Naming the three variants and then saying 'frameworks escape by default, so the risk lives in the escape hatches' is the practical senior framing."
+          "q": "What is cross-site scripting, and how do you prevent it?"
         },
         {
           "id": "security-6",
-          "level": 2,
-          "q": "What is cross-site request forgery, and how do you defend against it?",
-          "a": "Cross-site request forgery tricks a logged-in user's browser into making a state-changing request to your site from somewhere else. It works because the browser attaches cookies for your domain automatically, so a form or image tag on an attacker's page can cause a real, authenticated request without the attacker ever seeing the response.||The key insight is that CSRF is an attack on ambient credentials. If authentication rides along automatically on every request, the server can't tell a genuine user action from a forged one by looking at credentials alone. That's also why it mainly affects cookie-based auth and not an Authorization header the client has to set deliberately.||The primary modern defense is the SameSite cookie attribute, which tells the browser not to send the cookie on cross-site requests. SameSite=Lax is a sensible default and blocks the common cases, with Strict where you can tolerate the usability cost. For anything more sensitive I'd layer an anti-CSRF token: a per-session unpredictable value the server issues and the form or request must echo back, which an attacker's page can't read because of the same-origin policy.||I'd also make sure state-changing operations never happen on GET, since a GET that mutates state is trivially triggerable from an image tag and sidesteps a lot of protection.",
-          "tag": "Teachable",
-          "note": "'Attack on ambient credentials' is the sentence that explains why CSRF exists at all. Also worth stating that GET must never mutate state."
+          "q": "What is cross-site request forgery, and how do you defend against it?"
         },
         {
           "id": "security-7",
-          "level": 2,
-          "q": "What does CORS actually protect, and what is it commonly mistaken for?",
-          "a": "CORS is routinely misunderstood, so I'd start by naming what it isn't: it is not a defense that protects your server from attackers. It's a controlled relaxation of the browser's same-origin policy, and it's enforced by the browser, not by you.||The same-origin policy is the actual protection. It stops a script on one origin from reading a response from a different origin, which is what keeps a random site from calling your API with a user's cookies and reading the result. CORS is the mechanism by which a server says which other origins are allowed to bypass that restriction, using response headers like Access-Control-Allow-Origin.||The consequence people miss is that CORS is irrelevant to anything that isn't a browser. Curl, a server-side HTTP client, or a script ignore it entirely, so CORS provides zero protection against an attacker hitting your API directly. It only governs what a browser will let one page read from another origin.||So the practical implications are: don't rely on CORS as authorization, always enforce real authentication and authorization on the server, and don't reflexively set the allowed origin to a wildcard, especially on an API that uses credentials, because that's a genuine loosening of a real browser protection.",
-          "tag": "Teachable",
-          "note": "The distinguishing insight is that CORS relaxes a protection rather than adding one, and that it's browser-enforced so it does nothing against a direct request."
+          "q": "What does CORS actually protect, and what is it commonly mistaken for?"
         },
         {
           "id": "security-8",
-          "level": 3,
-          "q": "What is broken access control, and how do you design against it?",
-          "a": "Broken access control is when a user can act on something they shouldn't, and it's consistently one of the most common serious vulnerability classes in real applications. The everyday form is an insecure direct object reference: an endpoint takes an identifier, fetches that record, and returns it without ever checking whether the caller is entitled to it, so changing the id in the URL exposes someone else's data.||The root cause is usually that authorization is treated as a UI concern. The frontend hides the button, so the endpoint quietly assumes it can't be reached, which is false because anyone can call the API directly. Authorization has to be enforced server-side on every request, for every object touched.||Structurally I want the check to be hard to forget rather than remembered case by case. That means enforcing it in the layer that knows the business rules, and ideally making the data access itself ownership-scoped, so a query is naturally filtered to what the caller can see instead of fetching first and checking afterward. Denying by default matters too: a new endpoint should be inaccessible until it explicitly grants access, not open until someone remembers to lock it.||I'd also watch the variants beyond object ownership: privilege escalation through mass-assigning a role field, and function-level gaps where an admin-only endpoint simply isn't checked. Both are worth explicit tests, because access-control bugs rarely announce themselves.",
-          "tag": "Teachable",
-          "note": "Say 'the frontend hiding the button is not authorization.' That single line demonstrates the mindset the question is probing."
+          "q": "What is broken access control, and how do you design against it?"
         },
         {
           "id": "security-9",
-          "level": 2,
-          "q": "How do you protect sensitive data in transit and at rest?",
-          "a": "In transit, everything is TLS, with no plaintext fallback. That means HTTPS everywhere including internal service calls, HSTS so browsers refuse to downgrade, and modern TLS versions with old ones disabled. I'd rather terminate TLS somewhere managed, like a load balancer or gateway, than hand-manage certificates on every service.||At rest, I'd lean on the platform first: managed databases and object stores offer encryption at rest with managed keys, which covers the physical-media threat cheaply. That protects against a stolen disk or an exposed backup, but it's worth being clear-eyed that it does nothing against an attacker who has valid application credentials, because the database decrypts transparently for them too.||For genuinely sensitive fields, things like payment details, government identifiers, or health data, I'd add application-level encryption so the value is unreadable without a separate key held in a key management service. That way a database compromise alone isn't enough. And for anything I don't strictly need, the best protection is not storing it: tokenizing card data through a payment processor removes an entire compliance and breach surface.||I'd also think about lifecycle, since data I never delete is data I can eventually leak. That means retention policies, scrubbing sensitive values from logs and analytics, and being careful that non-production environments aren't seeded with real customer data.",
-          "tag": "Adjacent",
-          "note": "The honest caveat that encryption at rest doesn't stop a credentialed attacker is what makes this sound like understanding rather than a checklist."
+          "q": "How do you protect sensitive data in transit and at rest?"
         },
         {
           "id": "security-10",
-          "level": 2,
-          "q": "How do you keep third-party dependencies from becoming a security liability?",
-          "a": "Most of the code shipping in a modern application isn't code the team wrote, so dependencies are a genuine part of the attack surface. The baseline is automated scanning in CI, something like npm audit or Dependabot, so known vulnerabilities surface as part of the normal workflow rather than during an incident.||Lockfiles matter more than people credit. Committing a lockfile and installing from it in CI means the build is reproducible and a transitive dependency can't silently change under you between builds. I'd also want builds installing from the lockfile strictly rather than resolving fresh versions at deploy time.||Beyond scanning, I'd apply some judgment at the point of adding a dependency, because the cheapest vulnerability to manage is the one never introduced. For a small utility, the maintenance and risk cost of another package often exceeds writing it directly. For a larger one, I look at whether it's actively maintained, how widely used it is, and how deep its own dependency tree runs.||The failure mode I'd guard against is alert fatigue: if the scanner reports dozens of low-severity issues nobody triages, real ones get lost. So I'd want severity thresholds that actually block a build, and a routine for the rest, rather than a permanently red dashboard everyone ignores.",
-          "tag": "Teachable",
-          "note": "Alert fatigue is the practical point most candidates miss — a scanner nobody acts on is worse than none, because it manufactures false confidence."
+          "q": "How do you keep third-party dependencies from becoming a security liability?"
         },
         {
           "id": "security-11",
-          "level": 3,
-          "q": "How do you handle user file uploads safely?",
-          "a": "File uploads combine several risks at once, so I treat anything uploaded as hostile until proven otherwise. The first rule is never to trust client-supplied metadata: the filename, the extension, and the declared content type are all attacker-controlled, so I validate the actual content by inspecting the file rather than believing its label.||Storage is the decision that prevents the worst outcomes. Uploads go to object storage, not onto the application server's filesystem, and never into a directory the web server will execute or serve directly. Files get a generated identifier rather than the user's filename, which sidesteps path traversal, overwriting, and encoding tricks in one move. Serving from a separate domain limits what a malicious file can do with your origin if a browser does decide to render it.||Then there are the resource concerns: size limits enforced server-side, rate limits so uploads can't be used to exhaust storage or bandwidth, and care with anything that parses the file, since image and document parsers have a long history of vulnerabilities. Processing in an isolated worker rather than in the request path limits the damage and keeps a malicious file from blocking the service.||For anything user-shareable I'd add malware scanning, and I'd use pre-signed URLs so uploads go straight to storage rather than streaming through the application, which removes a whole category of resource-exhaustion risk.",
-          "tag": "Adjacent",
-          "note": "The strongest single point: generate your own filename and never let uploads land somewhere executable. Say it early."
+          "q": "How do you handle user file uploads safely?"
         },
         {
           "id": "security-12",
-          "level": 2,
-          "q": "How do you prevent sensitive data from leaking into logs and error responses?",
-          "a": "There are two audiences here and they need different things. The client should get a message that's useful for correcting the problem but says nothing about internals, so no stack traces, no SQL, no library versions, no file paths. Those details are genuine reconnaissance for an attacker, and a generic message plus a correlation identifier gives the user something actionable to quote to support without exposing anything.||Internally the logs need enough detail to debug, which is exactly where sensitive data tends to leak. The realistic risk isn't someone deliberately logging a password, it's logging a whole request or response object that happens to contain one. So I'd want redaction applied centrally in the logging layer, with a denylist of sensitive field names, rather than trusting every call site to remember.||I'd be specific about what never gets logged: credentials, tokens, full card numbers, and personal data beyond what's operationally necessary. Where an identifier is needed for correlation I'd log a hashed or truncated version instead of the raw value.||It's also worth remembering that logs propagate. They flow to aggregation platforms, get retained, and are visible to a wider group than the application's own database, so a secret in a log line is often more exposed than the same value in the database it came from.",
-          "tag": "Teachable",
-          "note": "The insight that a secret in a log is often more exposed than in the database is the part that lands. Also mention central redaction over per-call-site discipline."
+          "q": "How do you prevent sensitive data from leaking into logs and error responses?"
         },
         {
           "id": "security-13",
-          "level": 2,
-          "q": "Which HTTP security headers matter, and what does each one do?",
-          "a": "The one with the most substance is Content-Security-Policy, which tells the browser where resources may load and execute from. A good policy is the strongest mitigation available for cross-site scripting, because even injected script struggles to run. It's also the hardest to adopt on an existing app, so in practice I'd start in report-only mode, see what would break, then tighten and enforce.||Strict-Transport-Security, or HSTS, tells the browser to only ever reach the site over HTTPS, which closes the gap where a user's first request goes out as plaintext and can be intercepted and downgraded.||X-Content-Type-Options set to nosniff stops the browser guessing a response's type, which matters because a file the server thinks is inert can be sniffed into something executable. X-Frame-Options, or the frame-ancestors directive in CSP, prevents your pages being framed by another site, which is the defense against clickjacking. Referrer-Policy limits how much of the current URL gets sent to other sites, which matters when URLs carry identifiers.||I'd treat them as a cheap, high-value layer rather than a substitute for anything: they're defense in depth, and most are a one-line configuration change at the gateway or framework level. Ordering by value delivered, CSP is the one worth real effort.",
-          "tag": "Teachable",
-          "note": "Don't just list headers — rank them. CSP first with the report-only rollout path shows you've actually deployed one."
+          "q": "Which HTTP security headers matter, and what does each one do?"
         },
         {
           "id": "security-14",
-          "level": 2,
-          "q": "How do you defend a login endpoint against brute force and credential stuffing?",
-          "a": "These are two different attacks that need different answers. Brute force is many guesses against one account, and credential stuffing is one guess against many accounts using passwords leaked from some other breach. Rate limiting by account catches the first but completely misses the second, because each account only sees a single attempt.||So I'd rate limit on multiple dimensions: per account, per IP address, and globally on the endpoint, so a distributed attempt spread thin across many accounts still trips a threshold. Progressive delays or temporary lockouts raise the cost further, though I'd be careful with hard lockouts because they hand an attacker an easy denial-of-service against a known account.||The highest-leverage defense against stuffing specifically is checking passwords against known breach corpora, at signup and at reset, since stuffing only works when a user reuses a password that's already public. Multi-factor authentication is the strongest control, because a correct password alone stops being sufficient.||Two details I'd be deliberate about: responses should be uniform whether or not the account exists, since differing messages or timings let an attacker enumerate valid accounts, and login attempts should be logged and alerted on, because a spike in failures across many accounts is one of the clearer signals you're actively under attack.",
-          "tag": "Teachable",
-          "note": "Distinguishing brute force from credential stuffing up front is the whole answer — they need different defenses, and most candidates conflate them."
+          "q": "How do you defend a login endpoint against brute force and credential stuffing?"
         },
         {
           "id": "security-15",
-          "level": 3,
-          "q": "How do you approach security review of a new feature?",
-          "a": "I try to make it a design-time activity rather than a gate at the end, because the expensive security problems are architectural and rediscovering them in review means rework. Practically that means asking a few questions while the design is still soft: what new data are we handling, who should be able to reach this, what new inputs and trust boundaries are we introducing, and what's the worst outcome if this is abused.||Trust boundaries are the thing I look at hardest. Any point where data crosses from a less trusted context into a more trusted one is where validation and authorization belong, and the common failure is assuming a caller is trustworthy because it's internal or because the UI only offers valid options.||I find it useful to think in terms of what an attacker would want from this feature. If it touches money, the goal is moving it. If it touches personal data, the goal is reading it in bulk. If it sends messages or emails, the goal is using it to reach other people. Naming the objective usually points straight at the controls that matter, rather than applying a generic checklist.||I'd also weight it by risk instead of treating everything equally: anything touching authentication, authorization, money, or personal data deserves real scrutiny and probably a second reviewer, while a copy change doesn't. And I'd want a specific answer to how we'd detect abuse in production, because prevention is never complete and noticing matters.",
-          "tag": "Experience",
-          "note": "Frame it as design-time, not a gate. The 'what would an attacker want from this feature' reframing is more convincing than reciting a checklist."
+          "q": "How do you approach security review of a new feature?"
         }
       ]
     }
