@@ -1255,6 +1255,110 @@
           "q": "Design an audit log that records every change and can be queried later."
         }
       ]
+    },
+    {
+      "id": "realtime",
+      "name": "Real-time messaging system design",
+      "domain": "sysdesign",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "realtime-1",
+          "q": "How would you design a large-scale real-time messaging system?"
+        },
+        {
+          "id": "realtime-2",
+          "q": "WebSockets, server-sent events, or long polling — which would you choose and why?"
+        },
+        {
+          "id": "realtime-3",
+          "q": "How would you authenticate and authorize a long-lived connection?"
+        },
+        {
+          "id": "realtime-4",
+          "q": "How would you scale WebSocket connections to millions of users?"
+        },
+        {
+          "id": "realtime-5",
+          "q": "Connections are stateful. How do you route a message to the server holding a given user's connection?"
+        },
+        {
+          "id": "realtime-6",
+          "q": "How would you handle client reconnection — backoff, resuming state, and catching up on what was missed?"
+        },
+        {
+          "id": "realtime-7",
+          "q": "How would you deliver messages to users who are offline?"
+        },
+        {
+          "id": "realtime-8",
+          "q": "How would you model delivery state — sent, delivered, and read?"
+        },
+        {
+          "id": "realtime-9",
+          "q": "When a message goes to a large group, do you fan out on write or on read?"
+        },
+        {
+          "id": "realtime-10",
+          "q": "How does the design change for a two-person conversation versus a channel with fifty thousand members?"
+        },
+        {
+          "id": "realtime-11",
+          "q": "How would you store messages and conversation history?"
+        },
+        {
+          "id": "realtime-12",
+          "q": "How would you keep a single busy conversation from becoming a hot partition?"
+        },
+        {
+          "id": "realtime-13",
+          "q": "How would you guarantee message ordering within a conversation?"
+        },
+        {
+          "id": "realtime-14",
+          "q": "How would you prevent the same message being delivered or displayed twice?"
+        },
+        {
+          "id": "realtime-15",
+          "q": "How would you handle high-volume ephemeral events like typing indicators and presence?"
+        },
+        {
+          "id": "realtime-16",
+          "q": "What happens when a client is too slow to consume what you are sending it?"
+        },
+        {
+          "id": "realtime-17",
+          "q": "How would you support message edits, deletions, and reactions?"
+        },
+        {
+          "id": "realtime-18",
+          "q": "How would you handle attachments and media in messages?"
+        },
+        {
+          "id": "realtime-19",
+          "q": "How would you make message history searchable?"
+        },
+        {
+          "id": "realtime-20",
+          "q": "How would you keep latency low for users spread across regions?"
+        },
+        {
+          "id": "realtime-21",
+          "q": "How would the system behave during a network partition or a regional failure?"
+        },
+        {
+          "id": "realtime-22",
+          "q": "How would you rate limit messaging and handle spam or abuse?"
+        },
+        {
+          "id": "realtime-23",
+          "q": "What would end-to-end encryption cost you in features and complexity?"
+        },
+        {
+          "id": "realtime-24",
+          "q": "How would you monitor connection health and delivery latency?"
+        }
+      ]
     }
   ]
 }
