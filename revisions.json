@@ -1051,6 +1051,106 @@
           "q": "How would you introduce TypeScript into an existing JavaScript codebase?"
         }
       ]
+    },
+    {
+      "id": "testing",
+      "name": "Testing",
+      "domain": "testing",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "testing-1",
+          "q": "How do you think about the testing pyramid, and how do you decide what belongs at each level?"
+        },
+        {
+          "id": "testing-2",
+          "q": "What actually makes a test valuable, and what makes one a liability?"
+        },
+        {
+          "id": "testing-3",
+          "q": "How do you keep tests from breaking every time you refactor?"
+        },
+        {
+          "id": "testing-4",
+          "q": "What is code coverage good for, and why is a coverage target a bad goal?"
+        },
+        {
+          "id": "testing-5",
+          "q": "What are mocks, stubs, and fakes, and what goes wrong when you over-mock?"
+        },
+        {
+          "id": "testing-6",
+          "q": "When should a test use a real database, and how do you keep that fast and isolated?"
+        },
+        {
+          "id": "testing-7",
+          "q": "How do you manage test data — factories, fixtures, and isolation between tests?"
+        },
+        {
+          "id": "testing-8",
+          "q": "How do you test code that depends on the current time or on scheduled behaviour?"
+        },
+        {
+          "id": "testing-9",
+          "q": "How would you test a fee calculation so that you actually trust it?"
+        },
+        {
+          "id": "testing-10",
+          "q": "What is property-based testing, and when is it worth the effort?"
+        },
+        {
+          "id": "testing-11",
+          "q": "How do you test failure paths — timeouts, retries, and partial failures?"
+        },
+        {
+          "id": "testing-12",
+          "q": "How do you test an integration with a third-party API you do not control?"
+        },
+        {
+          "id": "testing-13",
+          "q": "What is contract testing, and what problem does it solve between services?"
+        },
+        {
+          "id": "testing-14",
+          "q": "How do you test asynchronous work like queues and background jobs?"
+        },
+        {
+          "id": "testing-15",
+          "q": "How do you test that authorization rules actually hold?"
+        },
+        {
+          "id": "testing-16",
+          "q": "A test is flaky. How do you investigate and fix it, and what do you do meanwhile?"
+        },
+        {
+          "id": "testing-17",
+          "q": "How do you keep a large test suite fast enough that people still run it?"
+        },
+        {
+          "id": "testing-18",
+          "q": "Which tests block a merge, and which run on a schedule?"
+        },
+        {
+          "id": "testing-19",
+          "q": "How do you decide what to test on the frontend versus the backend?"
+        },
+        {
+          "id": "testing-20",
+          "q": "Why do snapshot tests tend to rot, and when are they still useful?"
+        },
+        {
+          "id": "testing-21",
+          "q": "How would you gain confidence in a risky data migration before running it in production?"
+        },
+        {
+          "id": "testing-22",
+          "q": "How would you load test a service, and what would you measure?"
+        },
+        {
+          "id": "testing-23",
+          "q": "What is your view of test-driven development?"
+        }
+      ]
     }
   ]
 }
