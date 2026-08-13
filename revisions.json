@@ -855,6 +855,98 @@
           "q": "How do you structure a scalable React application?"
         }
       ]
+    },
+    {
+      "id": "js",
+      "name": "JavaScript",
+      "domain": "frontend",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "js-1",
+          "q": "What is a closure, and why does it matter?"
+        },
+        {
+          "id": "js-2",
+          "q": "Where do you actually use closures in real code, and how do they cause bugs?"
+        },
+        {
+          "id": "js-3",
+          "q": "What does `this` refer to in different contexts, and how do call, apply, and bind change it?"
+        },
+        {
+          "id": "js-4",
+          "q": "How does prototype-based inheritance work, and what happens on a property lookup?"
+        },
+        {
+          "id": "js-5",
+          "q": "How do `var`, `let`, and `const` differ in scoping and hoisting, and what is the temporal dead zone?"
+        },
+        {
+          "id": "js-6",
+          "q": "What is a promise, what states does it have, and how do errors propagate through a chain?"
+        },
+        {
+          "id": "js-7",
+          "q": "What is the difference between Promise.all, allSettled, race, and any, and when do you use each?"
+        },
+        {
+          "id": "js-8",
+          "q": "How do you handle errors across synchronous and asynchronous JavaScript, including code you didn't await?"
+        },
+        {
+          "id": "js-9",
+          "q": "How do iterators and generators work, and what problem do they solve?"
+        },
+        {
+          "id": "js-10",
+          "q": "What is async iteration, and when would you use `for await...of`?"
+        },
+        {
+          "id": "js-11",
+          "q": "What is the difference between a shallow copy and a deep copy, and how do you update nested data immutably?"
+        },
+        {
+          "id": "js-12",
+          "q": "How does garbage collection work at a high level, and what patterns cause memory leaks?"
+        },
+        {
+          "id": "js-13",
+          "q": "What are WeakMap and WeakSet for, and how do they relate to memory?"
+        },
+        {
+          "id": "js-14",
+          "q": "When would you use a Map or Set instead of a plain object or array?"
+        },
+        {
+          "id": "js-15",
+          "q": "How do you choose between map, filter, reduce, and a plain loop?"
+        },
+        {
+          "id": "js-16",
+          "q": "What are currying, partial application, and composition, and when are they worth using?"
+        },
+        {
+          "id": "js-17",
+          "q": "What is the difference between debouncing and throttling?"
+        },
+        {
+          "id": "js-18",
+          "q": "How does equality work in JavaScript, and where does coercion surprise people?"
+        },
+        {
+          "id": "js-19",
+          "q": "What problems arise from floating-point arithmetic, and how do you handle money correctly?"
+        },
+        {
+          "id": "js-20",
+          "q": "Why is date and time handling in JavaScript so error-prone, and how do you get it right?"
+        },
+        {
+          "id": "js-21",
+          "q": "When is a regular expression the right tool, and when does it become a liability?"
+        }
+      ]
     }
   ]
 }
