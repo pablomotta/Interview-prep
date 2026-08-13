@@ -1783,6 +1783,363 @@
           "q": "How do you troubleshoot an issue that crosses the storefront, your backend, and the commerce platform?"
         }
       ]
+    },
+    {
+      "id": "behavioral",
+      "name": "Behavioral & leadership",
+      "domain": "behavioral",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "behavioral-1",
+          "q": "Tell me about yourself."
+        },
+        {
+          "id": "behavioral-2",
+          "q": "Walk me through your background and the kinds of applications you have built."
+        },
+        {
+          "id": "behavioral-3",
+          "q": "Why are you interested in this role?"
+        },
+        {
+          "id": "behavioral-4",
+          "q": "Why are you looking for a new opportunity?"
+        },
+        {
+          "id": "behavioral-5",
+          "q": "What are you looking for in your next role, and where do you want to be in a few years?"
+        },
+        {
+          "id": "behavioral-6",
+          "q": "Tell me about a project you are particularly proud of."
+        },
+        {
+          "id": "behavioral-7",
+          "q": "What project did you lead or own from beginning to end?"
+        },
+        {
+          "id": "behavioral-8",
+          "q": "Tell me about a difficult technical problem you solved."
+        },
+        {
+          "id": "behavioral-9",
+          "q": "Tell me about a time you improved a system you inherited."
+        },
+        {
+          "id": "behavioral-10",
+          "q": "Tell me about a production incident and how you handled it."
+        },
+        {
+          "id": "behavioral-11",
+          "q": "Tell me about a time you rolled back a change."
+        },
+        {
+          "id": "behavioral-12",
+          "q": "Tell me about a mistake or failure and what you learned from it."
+        },
+        {
+          "id": "behavioral-13",
+          "q": "Tell me about a time you were wrong about a technical decision."
+        },
+        {
+          "id": "behavioral-14",
+          "q": "Tell me about an important trade-off you had to make, and how you decided."
+        },
+        {
+          "id": "behavioral-15",
+          "q": "Tell me about a difficult stakeholder situation."
+        },
+        {
+          "id": "behavioral-16",
+          "q": "Tell me about a technical disagreement, and how it was resolved."
+        },
+        {
+          "id": "behavioral-17",
+          "q": "How do you challenge a decision made by someone more senior?"
+        },
+        {
+          "id": "behavioral-18",
+          "q": "How do you handle disagreeing with a decision you then have to support?"
+        },
+        {
+          "id": "behavioral-19",
+          "q": "How do you handle conflict with a peer?"
+        },
+        {
+          "id": "behavioral-20",
+          "q": "How do you operate when requirements are unclear?"
+        },
+        {
+          "id": "behavioral-21",
+          "q": "How do you prioritize competing requests?"
+        },
+        {
+          "id": "behavioral-22",
+          "q": "How do you push back on scope without becoming the person who says no?"
+        },
+        {
+          "id": "behavioral-23",
+          "q": "How do you balance technical debt with feature delivery?"
+        },
+        {
+          "id": "behavioral-24",
+          "q": "How do you decide whether to build, buy, or improve an existing system?"
+        },
+        {
+          "id": "behavioral-25",
+          "q": "How do you respond when a project is falling behind schedule?"
+        },
+        {
+          "id": "behavioral-26",
+          "q": "How do you decide when a technical issue needs to be escalated?"
+        },
+        {
+          "id": "behavioral-27",
+          "q": "How do you communicate technical trade-offs to nontechnical stakeholders?"
+        },
+        {
+          "id": "behavioral-28",
+          "q": "How do you work with product, design, and Quality Assurance?"
+        },
+        {
+          "id": "behavioral-29",
+          "q": "How would you describe your leadership style, and have you managed engineers formally?"
+        },
+        {
+          "id": "behavioral-30",
+          "q": "Tell me about someone you mentored, or a time you led without formal authority."
+        },
+        {
+          "id": "behavioral-31",
+          "q": "How do you help an engineer who is consistently struggling?"
+        },
+        {
+          "id": "behavioral-32",
+          "q": "How do you give difficult feedback, and how do you take it?"
+        },
+        {
+          "id": "behavioral-33",
+          "q": "How do you make a decision when the team cannot reach consensus?"
+        },
+        {
+          "id": "behavioral-34",
+          "q": "How do you raise engineering standards without slowing the team down?"
+        },
+        {
+          "id": "behavioral-35",
+          "q": "How do you establish trust and get productive when joining an unfamiliar team, across your first 30, 60, and 90 days?"
+        },
+        {
+          "id": "behavioral-36",
+          "q": "What questions do you have for us?"
+        }
+      ]
+    },
+    {
+      "id": "core-career",
+      "name": "Core Track — Career & behavioral",
+      "domain": "behavioral",
+      "slope": "climb",
+      "subsetOf": [
+        "behavioral"
+      ],
+      "cards": [
+        {
+          "id": "behavioral-1",
+          "q": "Tell me about yourself."
+        },
+        {
+          "id": "behavioral-2",
+          "q": "Walk me through your background and the kinds of applications you have built."
+        },
+        {
+          "id": "behavioral-3",
+          "q": "Why are you interested in this role?"
+        },
+        {
+          "id": "behavioral-4",
+          "q": "Why are you looking for a new opportunity?"
+        },
+        {
+          "id": "behavioral-6",
+          "q": "Tell me about a project you are particularly proud of."
+        },
+        {
+          "id": "behavioral-8",
+          "q": "Tell me about a difficult technical problem you solved."
+        },
+        {
+          "id": "behavioral-10",
+          "q": "Tell me about a production incident and how you handled it."
+        },
+        {
+          "id": "behavioral-12",
+          "q": "Tell me about a mistake or failure and what you learned from it."
+        },
+        {
+          "id": "behavioral-16",
+          "q": "Tell me about a technical disagreement, and how it was resolved."
+        },
+        {
+          "id": "behavioral-20",
+          "q": "How do you operate when requirements are unclear?"
+        }
+      ]
+    },
+    {
+      "id": "core-leadership",
+      "name": "Core Track — Leadership & ownership",
+      "domain": "behavioral",
+      "slope": "climb",
+      "subsetOf": [
+        "behavioral"
+      ],
+      "cards": [
+        {
+          "id": "behavioral-21",
+          "q": "How do you prioritize competing requests?"
+        },
+        {
+          "id": "behavioral-30",
+          "q": "Tell me about someone you mentored, or a time you led without formal authority."
+        },
+        {
+          "id": "behavioral-23",
+          "q": "How do you balance technical debt with feature delivery?"
+        },
+        {
+          "id": "behavioral-27",
+          "q": "How do you communicate technical trade-offs to nontechnical stakeholders?"
+        }
+      ]
+    },
+    {
+      "id": "core-frontend-react",
+      "name": "Core Track — Frontend & React",
+      "domain": "frontend",
+      "slope": "climb",
+      "subsetOf": [
+        "frontendfund",
+        "react"
+      ],
+      "cards": [
+        {
+          "id": "frontendfund-1",
+          "q": "Walk me through what a browser does between receiving HTML and painting the first pixels."
+        },
+        {
+          "id": "frontendfund-5",
+          "q": "A page feels slow. How do you find out why, and what do you measure?"
+        },
+        {
+          "id": "frontendfund-13",
+          "q": "How do you make a complex interface accessible?"
+        },
+        {
+          "id": "react-1",
+          "q": "Why does a React component re-render, and what actually triggers it?"
+        },
+        {
+          "id": "react-27",
+          "q": "How do you structure a scalable React application?"
+        },
+        {
+          "id": "frontendfund-20",
+          "q": "How do you distinguish server state from client state, and where should each live?"
+        },
+        {
+          "id": "react-4",
+          "q": "A React screen feels slow. How do you find what is re-rendering and why?"
+        }
+      ]
+    },
+    {
+      "id": "core-js-ts",
+      "name": "Core Track — JavaScript & TypeScript",
+      "domain": "frontend",
+      "slope": "climb",
+      "subsetOf": [
+        "js",
+        "ts"
+      ],
+      "cards": [
+        {
+          "id": "js-1",
+          "q": "What is a closure, and why does it matter?"
+        },
+        {
+          "id": "js-6",
+          "q": "What is a promise, what states does it have, and how do errors propagate through a chain?"
+        },
+        {
+          "id": "js-3",
+          "q": "What does `this` refer to in different contexts, and how do call, apply, and bind change it?"
+        },
+        {
+          "id": "ts-2",
+          "q": "What is the difference between `unknown`, `any`, and `never`?"
+        },
+        {
+          "id": "ts-11",
+          "q": "What is a discriminated union, and why is it better than one type with many optional fields?"
+        }
+      ]
+    },
+    {
+      "id": "core-delivery",
+      "name": "Core Track — Delivery, reliability & testing",
+      "domain": "testing",
+      "slope": "climb",
+      "subsetOf": [
+        "testing",
+        "cloud"
+      ],
+      "cards": [
+        {
+          "id": "testing-1",
+          "q": "How do you think about the testing pyramid, and how do you decide what belongs at each level?"
+        },
+        {
+          "id": "cloud-13",
+          "q": "How do you deploy a change safely and roll it back when it goes wrong?"
+        },
+        {
+          "id": "cloud-20",
+          "q": "What metrics and alerts would you put on a service you own?"
+        },
+        {
+          "id": "cloud-23",
+          "q": "How do you respond during a major production incident?"
+        }
+      ]
+    },
+    {
+      "id": "core-sysdesign",
+      "name": "Core Track — System design",
+      "domain": "sysdesign",
+      "slope": "climb",
+      "subsetOf": [
+        "gensys"
+      ],
+      "cards": [
+        {
+          "id": "gensys-1",
+          "q": "How do you approach an open-ended system-design question?"
+        },
+        {
+          "id": "gensys-2",
+          "q": "What requirements would you clarify before proposing any design, and which answers would actually change it?"
+        },
+        {
+          "id": "gensys-3",
+          "q": "How do you estimate traffic, storage, and throughput well enough to size a system?"
+        },
+        {
+          "id": "gensys-4",
+          "q": "How do you weigh latency, consistency, durability, cost, and complexity against each other?"
+        }
+      ]
     }
   ]
 }
