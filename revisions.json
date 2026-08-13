@@ -739,6 +739,122 @@
           "q": "What does progressive enhancement mean in practice, and does it still matter?"
         }
       ]
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "domain": "frontend",
+      "slope": "climb",
+      "cards": [
+        {
+          "id": "react-1",
+          "q": "Why does a React component re-render, and what actually triggers it?"
+        },
+        {
+          "id": "react-2",
+          "q": "What does referential identity have to do with re-renders, and when do useMemo and useCallback actually help?"
+        },
+        {
+          "id": "react-3",
+          "q": "What does the React Compiler change about manual memoization?"
+        },
+        {
+          "id": "react-4",
+          "q": "A React screen feels slow. How do you find what is re-rendering and why?"
+        },
+        {
+          "id": "react-5",
+          "q": "How does reconciliation work, and what problem do keys solve in a list?"
+        },
+        {
+          "id": "react-6",
+          "q": "Why do the rules of hooks exist — what breaks if you call a hook conditionally?"
+        },
+        {
+          "id": "react-7",
+          "q": "useEffect is frequently overused. When is it the wrong tool, and what should you use instead?"
+        },
+        {
+          "id": "react-8",
+          "q": "What is a stale closure, and how does it bite you in an effect or a callback?"
+        },
+        {
+          "id": "react-9",
+          "q": "How do you clean up an effect, and how do you stop an out-of-date fetch from overwriting fresh data?"
+        },
+        {
+          "id": "react-10",
+          "q": "When should state be lifted, colocated, or derived rather than stored?"
+        },
+        {
+          "id": "react-11",
+          "q": "When would you reach for useReducer instead of useState?"
+        },
+        {
+          "id": "react-12",
+          "q": "What is useRef for, and how is it different from state?"
+        },
+        {
+          "id": "react-13",
+          "q": "When is Context the right tool, and what does it cost in re-renders?"
+        },
+        {
+          "id": "react-14",
+          "q": "How do you extract logic into a custom hook, and what makes a good one?"
+        },
+        {
+          "id": "react-15",
+          "q": "What is the difference between controlled and uncontrolled components, and why does it matter at scale?"
+        },
+        {
+          "id": "react-16",
+          "q": "How do you handle a large form without re-rendering everything on every keystroke?"
+        },
+        {
+          "id": "react-17",
+          "q": "How do you handle data fetching alongside loading, empty, and error states?"
+        },
+        {
+          "id": "react-18",
+          "q": "How do error boundaries work, and what do they not catch?"
+        },
+        {
+          "id": "react-19",
+          "q": "When would you use a Server Component versus a Client Component?"
+        },
+        {
+          "id": "react-20",
+          "q": "What can and cannot cross the boundary between a Server Component and a Client Component?"
+        },
+        {
+          "id": "react-21",
+          "q": "Walk through the React 19 form and action hooks."
+        },
+        {
+          "id": "react-22",
+          "q": "What does Suspense do, and how does streaming change what the user sees?"
+        },
+        {
+          "id": "react-23",
+          "q": "What problem do useTransition and useDeferredValue solve?"
+        },
+        {
+          "id": "react-24",
+          "q": "How would you render a list of ten thousand rows without the page becoming unusable?"
+        },
+        {
+          "id": "react-25",
+          "q": "How do you design a reusable component API without making it overly abstract?"
+        },
+        {
+          "id": "react-26",
+          "q": "How do you test React components, and what should you be asserting?"
+        },
+        {
+          "id": "react-27",
+          "q": "How do you structure a scalable React application?"
+        }
+      ]
     }
   ]
 }
